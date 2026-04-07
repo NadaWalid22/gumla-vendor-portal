@@ -256,10 +256,14 @@
       margin-top: 22px;
     }
 
+    .hero-bottom {
+      margin-top: 34px;
+    }
+
     .hero-trust {
       align-items: center;
       gap: 18px;
-      margin-top: 30px;
+      margin-top: 0;
     }
 
     .trust-avatars {
@@ -299,7 +303,7 @@
     }
 
     .hero-stats-band {
-      margin-top: 34px;
+      margin-top: 32px;
       background: rgba(255, 255, 255, 0.94);
       border: 1px solid rgba(30, 48, 75, 0.1);
       border-radius: 30px;
@@ -1250,6 +1254,10 @@
         padding-top: 28px;
       }
 
+      .hero-bottom {
+        margin-top: 26px;
+      }
+
       .search-input {
         min-width: 100%;
       }
@@ -1299,36 +1307,6 @@
             <div class="hero-actions">
               <button class="btn btn-primary" onclick="showPage('login')" data-i18n="hero.primary">Open Vendor Portal</button>
               <button class="btn btn-outline" onclick="document.getElementById('how').scrollIntoView({ behavior: 'smooth' })" data-i18n="hero.secondary">See Workflow</button>
-            </div>
-            <div class="hero-trust">
-              <div class="trust-avatars" aria-hidden="true">
-                <span class="trust-avatar">AH</span>
-                <span class="trust-avatar">TM</span>
-                <span class="trust-avatar">SR</span>
-                <span class="trust-avatar">KA</span>
-              </div>
-              <div class="trust-copy">
-                <strong data-i18n="hero.trustTitle">500+ vendors</strong>
-                <span data-i18n="hero.trustBody">already onboarded across 12 product categories</span>
-              </div>
-            </div>
-            <div class="hero-stats-band">
-              <div class="hero-stat-block">
-                <div class="hero-stat-value">500<span class="accent">+</span></div>
-                <div class="hero-stat-label" data-i18n="hero.stat1">Active Vendors</div>
-              </div>
-              <div class="hero-stat-block">
-                <div class="hero-stat-value">12<span class="accent">K+</span></div>
-                <div class="hero-stat-label" data-i18n="hero.stat2">Products Managed</div>
-              </div>
-              <div class="hero-stat-block">
-                <div class="hero-stat-value">99<span class="accent">%</span></div>
-                <div class="hero-stat-label" data-i18n="hero.stat3">Uptime SLA</div>
-              </div>
-              <div class="hero-stat-block">
-                <div class="hero-stat-value">&lt;1<span class="accent">s</span></div>
-                <div class="hero-stat-label" data-i18n="hero.stat4">Odoo Sync Time</div>
-              </div>
             </div>
           </div>
 
@@ -1395,6 +1373,40 @@
               </div>
             </div>
 
+          </div>
+        </div>
+
+        <div class="hero-bottom">
+          <div class="hero-trust">
+            <div class="trust-avatars" aria-hidden="true">
+              <span class="trust-avatar">AH</span>
+              <span class="trust-avatar">TM</span>
+              <span class="trust-avatar">SR</span>
+              <span class="trust-avatar">KA</span>
+            </div>
+            <div class="trust-copy">
+              <strong data-i18n="hero.trustTitle">500+ vendors</strong>
+              <span data-i18n="hero.trustBody">already onboarded across 12 product categories</span>
+            </div>
+          </div>
+
+          <div class="hero-stats-band">
+            <div class="hero-stat-block">
+              <div class="hero-stat-value">500<span class="accent">+</span></div>
+              <div class="hero-stat-label" data-i18n="hero.stat1">Active Vendors</div>
+            </div>
+            <div class="hero-stat-block">
+              <div class="hero-stat-value">12<span class="accent">K+</span></div>
+              <div class="hero-stat-label" data-i18n="hero.stat2">Products Managed</div>
+            </div>
+            <div class="hero-stat-block">
+              <div class="hero-stat-value">99<span class="accent">%</span></div>
+              <div class="hero-stat-label" data-i18n="hero.stat3">Uptime SLA</div>
+            </div>
+            <div class="hero-stat-block">
+              <div class="hero-stat-value">&lt;1<span class="accent">s</span></div>
+              <div class="hero-stat-label" data-i18n="hero.stat4">Odoo Sync Time</div>
+            </div>
           </div>
         </div>
       </div>
