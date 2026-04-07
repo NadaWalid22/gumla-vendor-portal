@@ -545,7 +545,7 @@
     .dashboard-stats,
     .cards-grid {
       display: grid;
-      gap: 18px;
+      gap: 24px;
     }
 
     .feature-grid {
@@ -562,39 +562,49 @@
     .login-panel,
     .settings-grid > div {
       background: rgba(255, 255, 255, 0.9);
-      border: 1px solid rgba(30, 48, 75, 0.09);
+      border: 1.5px solid rgba(30, 48, 75, 0.11);
       border-radius: var(--radius-lg);
       box-shadow: var(--shadow-soft);
     }
 
     .feature-card,
     .step-card {
-      padding: 22px;
+      padding: 34px 36px;
+    }
+
+    .feature-card {
+      min-height: 340px;
+      border-radius: 28px;
+      box-shadow: 0 10px 28px rgba(30, 48, 75, 0.06);
     }
 
     .feature-card h3,
     .step-card h3 {
-      margin: 12px 0 8px;
-      font-size: 1.12rem;
+      margin: 26px 0 14px;
+      font-size: 1.28rem;
+      line-height: 1.2;
+      color: #16181d;
     }
 
     .feature-card p,
     .step-card p {
-      color: var(--muted);
-      line-height: 1.75;
+      color: #6f7787;
+      line-height: 1.7;
+      font-size: 1rem;
       margin: 0;
     }
 
     .icon-chip,
     .step-number {
-      width: 52px;
-      height: 52px;
-      border-radius: 16px;
+      width: 68px;
+      height: 68px;
+      border-radius: 18px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.5rem;
-      background: linear-gradient(135deg, rgba(255, 94, 0, 0.12), rgba(255, 153, 0, 0.2));
+      font-size: 1.75rem;
+      background: linear-gradient(135deg, rgba(255, 94, 0, 0.12), rgba(255, 153, 0, 0.18));
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
     }
 
     .step-number {
