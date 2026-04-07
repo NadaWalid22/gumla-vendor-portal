@@ -278,11 +278,11 @@
     }
 
     .hero-card {
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.96);
       border: 1px solid rgba(30, 48, 75, 0.08);
-      border-radius: var(--radius-xl);
-      padding: 22px;
-      box-shadow: var(--shadow);
+      border-radius: 40px;
+      padding: 28px 34px 34px;
+      box-shadow: 0 30px 60px rgba(30, 48, 75, 0.12);
       overflow: hidden;
       position: relative;
     }
@@ -291,17 +291,35 @@
       content: "";
       position: absolute;
       inset: 0 0 auto;
-      height: 6px;
-      background: linear-gradient(90deg, var(--gumla-navy), var(--gumla-orange), var(--gumla-gold));
+      height: 8px;
+      background: linear-gradient(90deg, rgba(30, 48, 75, 0.95), var(--gumla-orange), var(--gumla-gold));
     }
 
     .hero-card-top {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 18px;
-      padding-top: 8px;
+      gap: 16px;
+      margin-bottom: 22px;
+      padding-top: 18px;
+    }
+
+    .hero-card-heading {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hero-card-heading strong {
+      color: var(--gumla-navy);
+      font-size: clamp(1.35rem, 2vw, 1.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .hero-card-heading .muted {
+      font-size: 1rem;
+      color: #75839a;
     }
 
     .badge {
@@ -318,6 +336,8 @@
     .badge-success {
       background: rgba(15, 140, 93, 0.12);
       color: var(--success);
+      padding-inline: 18px;
+      min-height: 48px;
     }
 
     .badge-warning {
@@ -328,15 +348,73 @@
     .stats-strip {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 18px;
+      gap: 16px;
+      margin-top: 24px;
     }
 
     .stats-strip .metric {
       min-width: 0;
-      padding: 14px 16px;
-      background: var(--surface-alt);
+      padding: 18px 20px;
+      background: #eef3fb;
+      border: 1px solid #d8e1ef;
+      border-radius: 28px;
       box-shadow: none;
+    }
+
+    .stats-strip .metric strong {
+      font-size: clamp(2rem, 4vw, 2.5rem);
+      line-height: 0.95;
+      margin-bottom: 8px;
+    }
+
+    .stats-strip .metric span {
+      font-size: 0.95rem;
+      color: #70809a;
+    }
+
+    .hero-preview-table {
+      min-width: 0;
+    }
+
+    .hero-preview-table th,
+    .hero-preview-table td {
+      padding: 20px 18px;
+    }
+
+    .hero-preview-table th {
+      color: #697791;
+      font-size: 0.8rem;
+      letter-spacing: 0.12em;
+    }
+
+    .hero-preview-table th:first-child,
+    .hero-preview-table td:first-child {
+      padding-inline-start: 20px;
+    }
+
+    .hero-preview-table th:last-child,
+    .hero-preview-table td:last-child {
+      padding-inline-end: 20px;
+    }
+
+    .hero-preview-table td {
+      font-size: 1rem;
+      color: var(--gumla-navy);
+    }
+
+    .hero-preview-table tbody tr:last-child td {
+      border-bottom: 1px solid rgba(30, 48, 75, 0.08);
+    }
+
+    .hero-price-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 153, 0, 0.16);
+      color: #b06d07;
+      font-weight: 800;
     }
 
     .section {
@@ -1060,6 +1138,16 @@
         padding: 20px;
       }
 
+      .hero-card {
+        padding: 22px;
+        border-radius: 30px;
+      }
+
+      .hero-preview-table th,
+      .hero-preview-table td {
+        padding: 16px 12px;
+      }
+
       .hero {
         padding-top: 28px;
       }
@@ -1132,37 +1220,33 @@
 
           <div class="hero-card">
             <div class="hero-card-top">
-              <div>
-                <strong data-i18n="hero.cardTitle">Vendor overview</strong><br />
+              <div class="hero-card-heading">
+                <strong data-i18n="hero.cardTitle">Vendor overview</strong>
                 <span class="muted" data-i18n="hero.cardSub">Responsive preview with Gumla colors</span>
               </div>
               <span class="badge badge-success" data-i18n="hero.live">Live ready</span>
             </div>
 
             <div class="table-wrap">
-              <table>
+              <table class="hero-preview-table">
                 <thead>
                   <tr>
                     <th data-i18n="table.product">Product</th>
                     <th data-i18n="table.vendorPrice">Vendor price</th>
-                    <th data-i18n="table.sync">Sync</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
                     <td>USB-C Hub 7-in-1</td>
                     <td>EGP 1,250</td>
-                    <td><span class="pill pill-success" data-i18n="hero.synced">Synced</span></td>
                   </tr>
                   <tr>
                     <td>Laptop Stand Pro</td>
                     <td>EGP 799</td>
-                    <td><span class="pill pill-success" data-i18n="hero.synced">Synced</span></td>
                   </tr>
                   <tr>
                     <td>Portable SSD 1TB</td>
-                    <td><span class="pill pill-warning" data-i18n="hero.pending">Pending price</span></td>
-                    <td><span class="pill pill-warning" data-i18n="hero.review">Needs review</span></td>
+                    <td><span class="hero-price-pill" data-i18n="hero.pending">Pending price</span></td>
                   </tr>
                 </tbody>
               </table>
