@@ -249,32 +249,98 @@
     }
 
     .hero-actions,
-    .hero-metrics {
+    .hero-trust {
       display: flex;
       flex-wrap: wrap;
       gap: 14px;
       margin-top: 22px;
     }
 
-    .metric {
-      background: rgba(255, 255, 255, 0.74);
-      border: 1px solid rgba(30, 48, 75, 0.08);
-      border-radius: 18px;
-      padding: 16px 18px;
-      min-width: 150px;
+    .hero-trust {
+      align-items: center;
+      gap: 18px;
+      margin-top: 30px;
+    }
+
+    .trust-avatars {
+      display: flex;
+      align-items: center;
+    }
+
+    .trust-avatar {
+      width: 50px;
+      height: 50px;
+      margin-inline-start: -10px;
+      border-radius: 999px;
+      border: 4px solid #fff;
+      background: linear-gradient(135deg, #d66b1a, var(--gumla-orange));
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.05rem;
+      box-shadow: 0 10px 20px rgba(255, 94, 0, 0.16);
+    }
+
+    .trust-avatar:first-child {
+      margin-inline-start: 0;
+    }
+
+    .trust-copy {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .trust-copy strong {
+      color: #191c22;
+      font-size: 1.05rem;
+    }
+
+    .hero-stats-band {
+      margin-top: 34px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(30, 48, 75, 0.1);
+      border-radius: 30px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       box-shadow: var(--shadow-soft);
     }
 
-    .metric strong {
-      display: block;
-      font-size: 1.45rem;
-      color: var(--gumla-navy);
-      margin-bottom: 4px;
+    .hero-stat-block {
+      padding: 30px 24px;
+      text-align: center;
+      position: relative;
+      background: rgba(255, 255, 255, 0.95);
     }
 
-    .metric span {
-      color: var(--muted);
-      font-size: 0.95rem;
+    .hero-stat-block + .hero-stat-block {
+      border-inline-start: 1px solid rgba(30, 48, 75, 0.1);
+    }
+
+    .hero-stat-value {
+      display: inline-flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 3px;
+      font-family: var(--font-display);
+      font-size: clamp(3.1rem, 6vw, 4.6rem);
+      font-weight: 800;
+      line-height: 0.9;
+      color: #101114;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-stat-value .accent {
+      color: #c96a16;
+    }
+
+    .hero-stat-label {
+      margin-top: 10px;
+      color: #6e6b65;
+      font-size: 0.98rem;
     }
 
     .hero-card {
@@ -1131,7 +1197,7 @@
       .nav-links,
       .nav-actions,
       .hero-actions,
-      .hero-metrics,
+      .hero-trust,
       .toolbar,
       .toolbar-left,
       .toolbar-right,
@@ -1151,8 +1217,14 @@
       .feature-grid,
       .steps-grid,
       .settings-grid,
-      .stats-strip {
+      .stats-strip,
+      .hero-stats-band {
         grid-template-columns: 1fr;
+      }
+
+      .hero-stat-block + .hero-stat-block {
+        border-inline-start: 0;
+        border-top: 1px solid rgba(30, 48, 75, 0.1);
       }
 
       .login-brand,
@@ -1228,18 +1300,34 @@
               <button class="btn btn-primary" onclick="showPage('login')" data-i18n="hero.primary">Open Vendor Portal</button>
               <button class="btn btn-outline" onclick="document.getElementById('how').scrollIntoView({ behavior: 'smooth' })" data-i18n="hero.secondary">See Workflow</button>
             </div>
-            <div class="hero-metrics">
-              <div class="metric">
-                <strong>500+</strong>
-                <span data-i18n="hero.metric1">Active vendors</span>
+            <div class="hero-trust">
+              <div class="trust-avatars" aria-hidden="true">
+                <span class="trust-avatar">AH</span>
+                <span class="trust-avatar">TM</span>
+                <span class="trust-avatar">SR</span>
+                <span class="trust-avatar">KA</span>
               </div>
-              <div class="metric">
-                <strong>2</strong>
-                <span data-i18n="hero.metric2">Languages built in</span>
+              <div class="trust-copy">
+                <strong data-i18n="hero.trustTitle">500+ vendors</strong>
+                <span data-i18n="hero.trustBody">already onboarded across 12 product categories</span>
               </div>
-              <div class="metric">
-                <strong>24/7</strong>
-                <span data-i18n="hero.metric3">GitHub Pages front-end access</span>
+            </div>
+            <div class="hero-stats-band">
+              <div class="hero-stat-block">
+                <div class="hero-stat-value">500<span class="accent">+</span></div>
+                <div class="hero-stat-label" data-i18n="hero.stat1">Active Vendors</div>
+              </div>
+              <div class="hero-stat-block">
+                <div class="hero-stat-value">12<span class="accent">K+</span></div>
+                <div class="hero-stat-label" data-i18n="hero.stat2">Products Managed</div>
+              </div>
+              <div class="hero-stat-block">
+                <div class="hero-stat-value">99<span class="accent">%</span></div>
+                <div class="hero-stat-label" data-i18n="hero.stat3">Uptime SLA</div>
+              </div>
+              <div class="hero-stat-block">
+                <div class="hero-stat-value">&lt;1<span class="accent">s</span></div>
+                <div class="hero-stat-label" data-i18n="hero.stat4">Odoo Sync Time</div>
               </div>
             </div>
           </div>
@@ -1663,9 +1751,12 @@
         'hero.body': 'Join the Gumla vendor network and take full control of your product catalog. Update prices, track stock, and stay in sync with our Odoo ERP — all from one clean dashboard.',
         'hero.primary': 'Open Vendor Portal',
         'hero.secondary': 'See Workflow',
-        'hero.metric1': 'Active vendors',
-        'hero.metric2': 'Languages built in',
-        'hero.metric3': 'GitHub Pages front-end access',
+        'hero.trustTitle': '500+ vendors',
+        'hero.trustBody': 'already onboarded across 12 product categories',
+        'hero.stat1': 'Active Vendors',
+        'hero.stat2': 'Products Managed',
+        'hero.stat3': 'Uptime SLA',
+        'hero.stat4': 'Odoo Sync Time',
         'hero.cardTitle': 'My Products',
         'hero.cardSub': 'Responsive preview with Gumla colors',
         'hero.live': 'Live',
@@ -1788,9 +1879,12 @@
         'hero.body': 'انضم إلى شبكة موردي Gumla وتحكم بالكامل في كتالوج منتجاتك. حدّث الأسعار، وتابع المخزون، وابقَ على اتصال دائم مع نظام Odoo ERP من خلال لوحة تحكم واحدة سهلة وواضحة.',
         'hero.primary': 'فتح بوابة الموردين',
         'hero.secondary': 'عرض سير العمل',
-        'hero.metric1': 'مورد نشط',
-        'hero.metric2': 'لغتان مدمجتان',
-        'hero.metric3': 'واجهة جاهزة للنشر عبر GitHub Pages',
+        'hero.trustTitle': 'أكثر من 500 مورد',
+        'hero.trustBody': 'تم ضمهم بالفعل عبر 12 فئة من المنتجات',
+        'hero.stat1': 'مورد نشط',
+        'hero.stat2': 'منتج مُدار',
+        'hero.stat3': 'معدل الجاهزية',
+        'hero.stat4': 'زمن مزامنة Odoo',
         'hero.cardTitle': 'منتجاتي',
         'hero.cardSub': 'معاينة متجاوبة بألوان Gumla',
         'hero.live': 'مباشر',
