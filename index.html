@@ -283,7 +283,7 @@
       border-radius: 40px;
       padding: 28px 34px 34px;
       box-shadow: 0 30px 60px rgba(30, 48, 75, 0.12);
-      overflow: hidden;
+      overflow: visible;
       position: relative;
     }
 
@@ -442,12 +442,11 @@
 
     .hero-floating-toast {
       position: absolute;
-      left: 18px;
-      bottom: 18px;
+      left: -10px;
+      bottom: -28px;
       display: inline-flex;
       align-items: center;
       gap: 12px;
-      max-width: calc(100% - 36px);
       padding: 14px 18px;
       background: rgba(255, 255, 255, 0.98);
       border: 1px solid rgba(30, 48, 75, 0.08);
@@ -1205,6 +1204,7 @@
       .hero-floating-toast {
         position: static;
         margin-top: 18px;
+        max-width: 100%;
       }
 
       .hero {
