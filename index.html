@@ -554,6 +554,20 @@
 
     .steps-grid {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 28px;
+      position: relative;
+      padding-top: 24px;
+    }
+
+    .steps-grid::before {
+      content: "";
+      position: absolute;
+      top: 58px;
+      left: 72px;
+      right: 72px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255, 94, 0, 0.14), rgba(255, 94, 0, 0.38), rgba(255, 153, 0, 0.14));
+      z-index: 0;
     }
 
     .feature-card,
@@ -576,6 +590,17 @@
       min-height: 320px;
       border-radius: 28px;
       box-shadow: 0 10px 24px rgba(30, 48, 75, 0.05);
+    }
+
+    .step-card {
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      border-radius: 0;
+      padding: 0;
+      position: relative;
+      text-align: center;
+      z-index: 1;
     }
 
     .feature-card h3,
@@ -609,9 +634,38 @@
     }
 
     .step-number {
-      font-size: 1.2rem;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 28px;
+      border-radius: 999px;
+      background: #fff;
+      border: 3px solid #e6ddd2;
+      box-shadow: 0 6px 18px rgba(30, 48, 75, 0.05);
+      font-size: 2rem;
       font-weight: 800;
-      color: var(--gumla-orange);
+      color: #111;
+    }
+
+    .step-card:first-child .step-number {
+      background: linear-gradient(135deg, #d97822, var(--gumla-orange));
+      border-color: rgba(255, 94, 0, 0.18);
+      color: #fff;
+    }
+
+    .step-card h3 {
+      margin: 0 0 14px;
+      font-size: 1.22rem;
+      line-height: 1.2;
+      color: #17191f;
+      font-weight: 800;
+    }
+
+    .step-card p {
+      max-width: 22ch;
+      margin: 0 auto;
+      color: #76716a;
+      font-size: 1rem;
+      line-height: 1.6;
     }
 
     .cta {
@@ -1199,6 +1253,10 @@
       .settings-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .steps-grid::before {
+        display: none;
+      }
     }
 
     @media (max-width: 720px) {
@@ -1478,23 +1536,23 @@
           <div class="steps-grid">
             <article class="step-card">
               <span class="step-number">1</span>
-              <h3 data-i18n="how.step1Title">Choose language</h3>
-              <p data-i18n="how.step1Body">Vendors can switch between English and Arabic at any time with proper direction and spacing.</p>
+              <h3 data-i18n="how.step1Title">Request Access</h3>
+              <p data-i18n="how.step1Body">Submit your vendor application. Our team reviews and creates your Odoo-linked account within 24 hours.</p>
             </article>
             <article class="step-card">
               <span class="step-number">2</span>
-              <h3 data-i18n="how.step2Title">Sign in securely</h3>
-              <p data-i18n="how.step2Body">The frontend attempts your live backend login first, then uses demo mode when the API is not available.</p>
+              <h3 data-i18n="how.step2Title">Log In Securely</h3>
+              <p data-i18n="how.step2Body">Use your credentials to access the portal. Sessions are JWT-protected and expire automatically.</p>
             </article>
             <article class="step-card">
               <span class="step-number">3</span>
-              <h3 data-i18n="how.step3Title">Manage products</h3>
-              <p data-i18n="how.step3Body">Search, filter, and update prices from a responsive table that still works on mobile and tablet.</p>
+              <h3 data-i18n="how.step3Title">Manage Products</h3>
+              <p data-i18n="how.step3Body">View your assigned product catalog. Add prices, edit existing ones, or bulk-update with one click.</p>
             </article>
             <article class="step-card">
               <span class="step-number">4</span>
-              <h3 data-i18n="how.step4Title">Publish on gumlanow.com</h3>
-              <p data-i18n="how.step4Body">Host the static frontend on GitHub Pages with the included CNAME file and point the API to your live backend.</p>
+              <h3 data-i18n="how.step4Title">Sync to Odoo</h3>
+              <p data-i18n="how.step4Body">Every save triggers an API write to Odoo 18. Your prices are live across the marketplace instantly.</p>
             </article>
           </div>
         </div>
@@ -1809,14 +1867,14 @@
         'features.syncBody': 'Works on desktop, tablet, and mobile. Manage your product catalog from anywhere — the office, a warehouse, or on the go.',
         'how.eyebrow': 'How it works',
         'how.title': 'From vendor login to synced in four steps',
-        'how.step1Title': 'Choose language',
-        'how.step1Body': 'Vendors can switch between English and Arabic at any time with proper direction and spacing.',
-        'how.step2Title': 'Sign in securely',
-        'how.step2Body': 'The frontend attempts your live backend login first, then uses demo mode when the API is not available.',
-        'how.step3Title': 'Manage products',
-        'how.step3Body': 'Search, filter, and update prices from a responsive table that still works on mobile and tablet.',
-        'how.step4Title': 'Publish on gumlanow.com',
-        'how.step4Body': 'Host the static frontend on GitHub Pages with the included CNAME file and point the API to your live backend.',
+        'how.step1Title': 'Request Access',
+        'how.step1Body': 'Submit your vendor application. Our team reviews and creates your Odoo-linked account within 24 hours.',
+        'how.step2Title': 'Log In Securely',
+        'how.step2Body': 'Use your credentials to access the portal. Sessions are JWT-protected and expire automatically.',
+        'how.step3Title': 'Manage Products',
+        'how.step3Body': 'View your assigned product catalog. Add prices, edit existing ones, or bulk-update with one click.',
+        'how.step4Title': 'Sync to Odoo',
+        'how.step4Body': 'Every save triggers an API write to Odoo 18. Your prices are live across the marketplace instantly.',
         'cta.eyebrow': 'Launch Ready',
         'cta.title': 'Ready to publish the Gumla vendor portal?',
         'cta.body': 'Enter your contact email and this demo will confirm the onboarding request. For production, connect the static site to GitHub Pages and the API to your live backend host.',
@@ -1937,14 +1995,14 @@
         'features.syncBody': 'يعمل على الكمبيوتر والتابلت والموبايل. يمكنك إدارة كتالوج منتجاتك من أي مكان، سواء من المكتب أو المستودع أو أثناء التنقل.',
         'how.eyebrow': 'كيف يعمل',
         'how.title': 'من دخول المورد حتى المزامنة في أربع خطوات',
-        'how.step1Title': 'اختر اللغة',
-        'how.step1Body': 'يمكن للمورد التبديل بين العربية والإنجليزية في أي وقت مع اتجاه ومحاذاة صحيحة.',
+        'how.step1Title': 'اطلب الوصول',
+        'how.step1Body': 'قدّم طلب انضمامك كمورد، وسيقوم فريقنا بمراجعته وإنشاء حسابك المرتبط بـ Odoo خلال 24 ساعة.',
         'how.step2Title': 'سجل الدخول بأمان',
-        'how.step2Body': 'تحاول الواجهة تسجيل الدخول عبر الباك إند الحقيقي أولاً، ثم تستخدم وضع العرض التجريبي عند عدم توفر الـ API.',
+        'how.step2Body': 'استخدم بياناتك للدخول إلى البوابة. الجلسات محمية عبر JWT وتنتهي تلقائياً.',
         'how.step3Title': 'أدر المنتجات',
-        'how.step3Body': 'ابحث وفلتر وحدّث الأسعار من جدول متجاوب يعمل بسلاسة على الموبايل والتابلت.',
-        'how.step4Title': 'انشر على gumlanow.com',
-        'how.step4Body': 'استضف الواجهة الثابتة على GitHub Pages باستخدام ملف CNAME المرفق ثم اربطها بباك إند مباشر.',
+        'how.step3Body': 'اعرض كتالوج المنتجات المخصص لك، وأضف الأسعار أو حدّثها أو نفّذ تعديلات جماعية بسهولة.',
+        'how.step4Title': 'زامن مع Odoo',
+        'how.step4Body': 'كل عملية حفظ ترسل تحديثاً مباشراً إلى Odoo 18، فتظهر أسعارك فوراً عبر السوق.',
         'cta.eyebrow': 'جاهزة للإطلاق',
         'cta.title': 'هل أنت جاهز لإطلاق بوابة موردي Gumla؟',
         'cta.body': 'أدخل بريدك الإلكتروني وسيؤكد هذا النموذج الطلب بشكل تجريبي. عند الإطلاق الفعلي اربط الواجهة مع GitHub Pages والـ API مع الاستضافة المناسبة.',
