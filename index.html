@@ -1,0 +1,2336 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gumla Vendor Portal</title>
+  <meta name="description" content="Gumla vendor portal for product pricing, inventory visibility, and Odoo sync." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --gumla-navy: #1e304b;
+      --gumla-orange: #ff5e00;
+      --gumla-gold: #ff9900;
+      --bg: #f6f7fb;
+      --surface: #ffffff;
+      --surface-alt: #eef3f8;
+      --text: #1e304b;
+      --muted: #66758b;
+      --border: #d9e1eb;
+      --success: #0f8c5d;
+      --danger: #d94a38;
+      --warning: #ff9900;
+      --shadow: 0 22px 55px rgba(30, 48, 75, 0.12);
+      --shadow-soft: 0 10px 28px rgba(30, 48, 75, 0.08);
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --radius-xl: 34px;
+      --sidebar-width: 280px;
+      --content-width: 1280px;
+      --font-display: "Syne", "Tajawal", sans-serif;
+      --font-body: "Tajawal", system-ui, sans-serif;
+      --transition: 0.22s ease;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: var(--font-body);
+      background:
+        radial-gradient(circle at top left, rgba(255, 153, 0, 0.16), transparent 28%),
+        radial-gradient(circle at top right, rgba(255, 94, 0, 0.16), transparent 24%),
+        linear-gradient(180deg, #f8fafc 0%, #f4f7fb 100%);
+      color: var(--text);
+      min-width: 320px;
+      overflow-x: hidden;
+    }
+
+    a, button, input, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    .shell {
+      width: min(100% - 32px, var(--content-width));
+      margin-inline: auto;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(18px);
+      background: rgba(246, 247, 251, 0.88);
+      border-bottom: 1px solid rgba(30, 48, 75, 0.08);
+    }
+
+    .nav-inner {
+      width: min(100% - 32px, var(--content-width));
+      margin-inline: auto;
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 12px 0;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text);
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 800;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gumla-navy) 0 45%, var(--gumla-orange) 45% 73%, var(--gumla-gold) 73% 100%);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-links,
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-weight: 700;
+      transition: color var(--transition);
+    }
+
+    .nav-links a:hover {
+      color: var(--gumla-orange);
+    }
+
+    .lang-switch {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px;
+      border-radius: 999px;
+      background: rgba(30, 48, 75, 0.08);
+    }
+
+    .lang-switch button {
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-weight: 800;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .lang-switch button.active {
+      background: var(--surface);
+      color: var(--gumla-navy);
+      box-shadow: 0 6px 18px rgba(30, 48, 75, 0.12);
+    }
+
+    .btn {
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gumla-orange), var(--gumla-gold));
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(255, 94, 0, 0.26);
+    }
+
+    .btn-secondary {
+      background: var(--gumla-navy);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(30, 48, 75, 0.18);
+    }
+
+    .btn-outline {
+      background: var(--surface);
+      color: var(--gumla-navy);
+      border: 1px solid rgba(30, 48, 75, 0.16);
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(255, 153, 0, 0.14);
+      color: var(--gumla-orange);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--gumla-orange);
+    }
+
+    .hero {
+      padding: 56px 0 36px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+      gap: 36px;
+      align-items: center;
+    }
+
+    .hero-copy h1,
+    .section-title,
+    .login-panel h2,
+    .dashboard-card h3,
+    .modal-card h3 {
+      font-family: var(--font-display);
+      letter-spacing: -0.03em;
+    }
+
+    .hero-copy h1 {
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      line-height: 0.96;
+      margin: 18px 0 18px;
+      max-width: 11ch;
+    }
+
+    .hero-copy p {
+      max-width: 58ch;
+      color: var(--muted);
+      font-size: 1.08rem;
+      line-height: 1.8;
+    }
+
+    .hero-actions,
+    .hero-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 22px;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(30, 48, 75, 0.08);
+      border-radius: 18px;
+      padding: 16px 18px;
+      min-width: 150px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .metric strong {
+      display: block;
+      font-size: 1.45rem;
+      color: var(--gumla-navy);
+      margin-bottom: 4px;
+    }
+
+    .metric span {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid rgba(30, 48, 75, 0.08);
+      border-radius: var(--radius-xl);
+      padding: 22px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 6px;
+      background: linear-gradient(90deg, var(--gumla-navy), var(--gumla-orange), var(--gumla-gold));
+    }
+
+    .hero-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+      padding-top: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .badge-success {
+      background: rgba(15, 140, 93, 0.12);
+      color: var(--success);
+    }
+
+    .badge-warning {
+      background: rgba(255, 153, 0, 0.14);
+      color: #a05d00;
+    }
+
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stats-strip .metric {
+      min-width: 0;
+      padding: 14px 16px;
+      background: var(--surface-alt);
+      box-shadow: none;
+    }
+
+    .section {
+      padding: 44px 0;
+    }
+
+    .section-head {
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 760px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.1rem);
+      margin: 0;
+    }
+
+    .section-sub {
+      color: var(--muted);
+      line-height: 1.75;
+      font-size: 1.02rem;
+      margin: 0;
+    }
+
+    .feature-grid,
+    .steps-grid,
+    .dashboard-stats,
+    .cards-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .feature-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .steps-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .feature-card,
+    .step-card,
+    .dashboard-card,
+    .login-panel,
+    .settings-grid > div {
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(30, 48, 75, 0.09);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .feature-card,
+    .step-card {
+      padding: 22px;
+    }
+
+    .feature-card h3,
+    .step-card h3 {
+      margin: 12px 0 8px;
+      font-size: 1.12rem;
+    }
+
+    .feature-card p,
+    .step-card p {
+      color: var(--muted);
+      line-height: 1.75;
+      margin: 0;
+    }
+
+    .icon-chip,
+    .step-number {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      background: linear-gradient(135deg, rgba(255, 94, 0, 0.12), rgba(255, 153, 0, 0.2));
+    }
+
+    .step-number {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: var(--gumla-orange);
+    }
+
+    .cta {
+      padding: 54px 0 68px;
+    }
+
+    .cta-card {
+      background: linear-gradient(145deg, var(--gumla-navy), #314a72);
+      color: #fff;
+      border-radius: 36px;
+      padding: 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: 22px;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+
+    .cta-card p {
+      color: rgba(255, 255, 255, 0.76);
+      line-height: 1.75;
+      margin: 12px 0 0;
+    }
+
+    .cta-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .input,
+    .select {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(30, 48, 75, 0.16);
+      padding: 14px 16px;
+      background: #fff;
+      color: var(--text);
+      transition: border-color var(--transition), box-shadow var(--transition);
+    }
+
+    .input:focus,
+    .select:focus {
+      outline: none;
+      border-color: var(--gumla-orange);
+      box-shadow: 0 0 0 4px rgba(255, 94, 0, 0.12);
+    }
+
+    .page {
+      display: none;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .login-shell {
+      padding: 28px 0 48px;
+    }
+
+    .login-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.98fr);
+      gap: 24px;
+      align-items: stretch;
+    }
+
+    .login-brand {
+      padding: 30px;
+      border-radius: 34px;
+      color: #fff;
+      background:
+        radial-gradient(circle at top right, rgba(255, 153, 0, 0.24), transparent 30%),
+        radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.14), transparent 26%),
+        linear-gradient(160deg, var(--gumla-navy), #243a5a 60%, #1b2e48 100%);
+      min-height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+    }
+
+    .login-brand h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.5rem);
+      line-height: 1;
+      margin: 18px 0 14px;
+    }
+
+    .login-brand p,
+    .login-brand li {
+      color: rgba(255, 255, 255, 0.78);
+      line-height: 1.8;
+    }
+
+    .login-brand ul {
+      padding-inline-start: 20px;
+      margin: 18px 0 0;
+    }
+
+    .login-panel {
+      padding: 28px;
+    }
+
+    .login-panel h2 {
+      margin: 0 0 8px;
+      font-size: 2rem;
+    }
+
+    .login-panel > p {
+      margin: 0 0 24px;
+      color: var(--muted);
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .field label {
+      font-weight: 800;
+      font-size: 0.96rem;
+    }
+
+    .field-hint,
+    .error-text {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    .error-text {
+      color: var(--danger);
+      display: none;
+    }
+
+    .alert {
+      border-radius: 16px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    .alert-error {
+      background: rgba(217, 74, 56, 0.1);
+      color: var(--danger);
+    }
+
+    .alert-success {
+      background: rgba(15, 140, 93, 0.12);
+      color: var(--success);
+    }
+
+    .demo-box {
+      margin-top: 20px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(30, 48, 75, 0.05);
+      color: var(--muted);
+    }
+
+    .dashboard-shell {
+      padding: 18px 0 40px;
+    }
+
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, var(--sidebar-width)) minmax(0, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .dashboard-sidebar {
+      position: sticky;
+      top: 94px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .dashboard-card {
+      padding: 22px;
+    }
+
+    .vendor-card {
+      background: linear-gradient(150deg, var(--gumla-navy), #324b72);
+      color: #fff;
+      box-shadow: var(--shadow);
+    }
+
+    .vendor-top {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .vendor-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, var(--gumla-orange), var(--gumla-gold));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+
+    .vendor-card p,
+    .vendor-card small {
+      color: rgba(255, 255, 255, 0.76);
+    }
+
+    .dashboard-nav {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .nav-tab {
+      border: 0;
+      text-align: start;
+      padding: 14px 16px;
+      border-radius: 16px;
+      background: transparent;
+      color: var(--muted);
+      font-weight: 800;
+      transition: background var(--transition), color var(--transition), transform var(--transition);
+    }
+
+    .nav-tab.active {
+      background: rgba(255, 94, 0, 0.1);
+      color: var(--gumla-orange);
+    }
+
+    .dashboard-main {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .dashboard-top {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .dashboard-top h2 {
+      margin: 0;
+      font-family: var(--font-display);
+      font-size: 2rem;
+    }
+
+    .dashboard-top p {
+      margin: 6px 0 0;
+      color: var(--muted);
+    }
+
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .dashboard-stats {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .dashboard-stats .dashboard-card strong {
+      display: block;
+      font-size: 2rem;
+      margin-top: 8px;
+      font-family: var(--font-display);
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .table-wrap {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+    }
+
+    th,
+    td {
+      padding: 14px 12px;
+      border-bottom: 1px solid rgba(30, 48, 75, 0.08);
+      text-align: start;
+      vertical-align: middle;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.84rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .product-meta {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .product-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 94, 0, 0.08);
+      font-size: 1.25rem;
+      flex-shrink: 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(30, 48, 75, 0.08);
+      font-size: 0.86rem;
+      font-weight: 800;
+    }
+
+    .pill-success {
+      background: rgba(15, 140, 93, 0.1);
+      color: var(--success);
+    }
+
+    .pill-warning {
+      background: rgba(255, 153, 0, 0.14);
+      color: #a05d00;
+    }
+
+    .pill-danger {
+      background: rgba(217, 74, 56, 0.1);
+      color: var(--danger);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .toolbar-left,
+    .toolbar-right {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .chip {
+      border: 1px solid rgba(30, 48, 75, 0.14);
+      background: #fff;
+      color: var(--muted);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-weight: 800;
+    }
+
+    .chip.active {
+      border-color: rgba(255, 94, 0, 0.28);
+      color: var(--gumla-orange);
+      background: rgba(255, 94, 0, 0.08);
+    }
+
+    .search-input {
+      min-width: min(100%, 280px);
+    }
+
+    .activity-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .activity-item {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 12px;
+      align-items: start;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(30, 48, 75, 0.08);
+    }
+
+    .activity-item:last-child {
+      border-bottom: 0;
+    }
+
+    .activity-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 999px;
+      margin-top: 8px;
+      background: var(--gumla-orange);
+    }
+
+    .activity-dot.yellow {
+      background: var(--warning);
+    }
+
+    .activity-dot.red {
+      background: var(--danger);
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .settings-grid > div {
+      padding: 22px;
+    }
+
+    .settings-grid h3 {
+      margin-top: 0;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(19, 29, 45, 0.56);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 200;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: min(100%, 560px);
+      background: #fff;
+      border-radius: 30px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .modal-card h3 {
+      margin: 0 0 8px;
+      font-size: 1.9rem;
+    }
+
+    .modal-card p {
+      margin: 0 0 18px;
+      color: var(--muted);
+    }
+
+    .modal-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: flex-end;
+      margin-top: 18px;
+    }
+
+    .toast-stack {
+      position: fixed;
+      inset-inline-end: 24px;
+      bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      z-index: 300;
+    }
+
+    .toast {
+      min-width: min(100vw - 48px, 270px);
+      background: var(--gumla-navy);
+      color: #fff;
+      padding: 14px 16px;
+      border-radius: 18px;
+      box-shadow: var(--shadow-soft);
+      animation: slideIn 0.25s ease;
+    }
+
+    .toast.success {
+      background: var(--success);
+    }
+
+    .toast.error {
+      background: var(--danger);
+    }
+
+    .empty-state {
+      padding: 40px 18px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 24px 0 44px;
+      color: var(--muted);
+    }
+
+    footer .shell {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    [dir="rtl"] body,
+    [dir="rtl"] input,
+    [dir="rtl"] select,
+    [dir="rtl"] button {
+      text-align: right;
+    }
+
+    [dir="rtl"] .hero-copy h1,
+    [dir="rtl"] .section-title,
+    [dir="rtl"] .dashboard-top h2 {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] .activity-item {
+      grid-template-columns: auto 1fr auto;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateY(10px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 1120px) {
+      .hero-grid,
+      .login-grid,
+      .cta-card,
+      .dashboard-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .dashboard-sidebar {
+        position: static;
+      }
+
+      .dashboard-nav {
+        flex-direction: row;
+        overflow-x: auto;
+        padding-bottom: 4px;
+      }
+
+      .nav-tab {
+        white-space: nowrap;
+      }
+
+      .dashboard-stats,
+      .feature-grid,
+      .steps-grid,
+      .settings-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav-inner,
+      .shell {
+        width: min(100% - 24px, var(--content-width));
+      }
+
+      .nav-inner {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .nav-links,
+      .nav-actions,
+      .hero-actions,
+      .hero-metrics,
+      .toolbar,
+      .toolbar-left,
+      .toolbar-right,
+      .top-actions,
+      .modal-actions {
+        width: 100%;
+      }
+
+      .nav-links a,
+      .btn,
+      .chip,
+      .lang-switch {
+        width: 100%;
+      }
+
+      .dashboard-stats,
+      .feature-grid,
+      .steps-grid,
+      .settings-grid,
+      .stats-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .login-brand,
+      .login-panel,
+      .dashboard-card,
+      .feature-card,
+      .step-card,
+      .cta-card {
+        padding: 20px;
+      }
+
+      .hero {
+        padding-top: 28px;
+      }
+
+      .search-input {
+        min-width: 100%;
+      }
+
+      .activity-item {
+        grid-template-columns: auto 1fr;
+      }
+
+      .activity-item time {
+        grid-column: 2;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#" onclick="showPage('landing'); return false;">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>Gumla</span>
+      </a>
+
+      <div class="nav-links" id="public-nav">
+        <a href="#features" data-i18n="nav.features">Features</a>
+        <a href="#how" data-i18n="nav.how">How it works</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
+      </div>
+
+      <div class="nav-actions">
+        <div class="lang-switch" aria-label="Language switcher">
+          <button type="button" id="lang-en" class="active" onclick="setLanguage('en')">EN</button>
+          <button type="button" id="lang-ar" onclick="setLanguage('ar')">AR</button>
+        </div>
+        <button class="btn btn-outline" id="nav-auth-btn" onclick="handleAuthAction()" data-i18n="nav.login">Vendor Login</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <section class="page active" id="page-landing">
+      <div class="shell hero">
+        <div class="hero-grid">
+          <div class="hero-copy">
+            <span class="eyebrow" data-i18n="hero.eyebrow">B2B Marketplace Platform</span>
+            <h1 data-i18n="hero.title">Manage products, pricing, and vendor updates with confidence.</h1>
+            <p data-i18n="hero.body">A responsive Gumla portal for desktop, tablet, and mobile. Vendors can work in English or Arabic, sync with Odoo, and update pricing without fighting the interface.</p>
+            <div class="hero-actions">
+              <button class="btn btn-primary" onclick="showPage('login')" data-i18n="hero.primary">Open Vendor Portal</button>
+              <button class="btn btn-outline" onclick="document.getElementById('how').scrollIntoView({ behavior: 'smooth' })" data-i18n="hero.secondary">See Workflow</button>
+            </div>
+            <div class="hero-metrics">
+              <div class="metric">
+                <strong>500+</strong>
+                <span data-i18n="hero.metric1">Active vendors</span>
+              </div>
+              <div class="metric">
+                <strong>2</strong>
+                <span data-i18n="hero.metric2">Languages built in</span>
+              </div>
+              <div class="metric">
+                <strong>24/7</strong>
+                <span data-i18n="hero.metric3">GitHub Pages front-end access</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-card">
+            <div class="hero-card-top">
+              <div>
+                <strong data-i18n="hero.cardTitle">Vendor overview</strong><br />
+                <span class="muted" data-i18n="hero.cardSub">Responsive preview with Gumla colors</span>
+              </div>
+              <span class="badge badge-success" data-i18n="hero.live">Live ready</span>
+            </div>
+
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th data-i18n="table.product">Product</th>
+                    <th data-i18n="table.vendorPrice">Vendor price</th>
+                    <th data-i18n="table.sync">Sync</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>USB-C Hub 7-in-1</td>
+                    <td>EGP 1,250</td>
+                    <td><span class="pill pill-success" data-i18n="hero.synced">Synced</span></td>
+                  </tr>
+                  <tr>
+                    <td>Laptop Stand Pro</td>
+                    <td>EGP 799</td>
+                    <td><span class="pill pill-success" data-i18n="hero.synced">Synced</span></td>
+                  </tr>
+                  <tr>
+                    <td>Portable SSD 1TB</td>
+                    <td><span class="pill pill-warning" data-i18n="hero.pending">Pending price</span></td>
+                    <td><span class="pill pill-warning" data-i18n="hero.review">Needs review</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div class="stats-strip">
+              <div class="metric">
+                <strong id="hero-total-products">14</strong>
+                <span data-i18n="hero.cardMetric1">Products</span>
+              </div>
+              <div class="metric">
+                <strong>99%</strong>
+                <span data-i18n="hero.cardMetric2">Sync health</span>
+              </div>
+              <div class="metric">
+                <strong>RTL</strong>
+                <span data-i18n="hero.cardMetric3">Arabic ready</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <section class="section" id="features">
+        <div class="shell">
+          <div class="section-head">
+            <span class="eyebrow" data-i18n="features.eyebrow">Platform Features</span>
+            <h2 class="section-title" data-i18n="features.title">Built for Gumla’s real vendor workflow</h2>
+            <p class="section-sub" data-i18n="features.sub">The frontend now scales properly, supports Arabic and English, and keeps the UI ready for a live API instead of staying locked to demo data.</p>
+          </div>
+
+          <div class="feature-grid">
+            <article class="feature-card">
+              <span class="icon-chip">📐</span>
+              <h3 data-i18n="features.responsiveTitle">Flexible sizing</h3>
+              <p data-i18n="features.responsiveBody">The dashboard no longer relies on a fixed sidebar layout that breaks smaller screens. It adapts cleanly from desktop to phone.</p>
+            </article>
+            <article class="feature-card">
+              <span class="icon-chip">🌍</span>
+              <h3 data-i18n="features.langTitle">Arabic + English</h3>
+              <p data-i18n="features.langBody">Language switching updates text, alignment, and page direction, so Arabic renders in proper RTL layout instead of looking mirrored or cramped.</p>
+            </article>
+            <article class="feature-card">
+              <span class="icon-chip">🎨</span>
+              <h3 data-i18n="features.brandTitle">Gumla branding</h3>
+              <p data-i18n="features.brandBody">The palette now uses Gumla navy, orange, and gold across the whole experience for a more consistent brand feel.</p>
+            </article>
+            <article class="feature-card">
+              <span class="icon-chip">🔗</span>
+              <h3 data-i18n="features.apiTitle">Configurable API</h3>
+              <p data-i18n="features.apiBody">The app can try your backend first and gracefully fall back to demo data when the API is not reachable during development.</p>
+            </article>
+            <article class="feature-card">
+              <span class="icon-chip">☁️</span>
+              <h3 data-i18n="features.hostingTitle">GitHub Pages ready</h3>
+              <p data-i18n="features.hostingBody">A deployment workflow and custom-domain file are included so the static frontend can be published on GitHub and connected to gumla.app.</p>
+            </article>
+            <article class="feature-card">
+              <span class="icon-chip">🛡️</span>
+              <h3 data-i18n="features.syncTitle">Safer editing flow</h3>
+              <p data-i18n="features.syncBody">Price updates, search, filters, and status messages are all kept intact while making the interface easier to use across devices.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="how">
+        <div class="shell">
+          <div class="section-head">
+            <span class="eyebrow" data-i18n="how.eyebrow">How it works</span>
+            <h2 class="section-title" data-i18n="how.title">From vendor login to Odoo sync in four steps</h2>
+          </div>
+
+          <div class="steps-grid">
+            <article class="step-card">
+              <span class="step-number">1</span>
+              <h3 data-i18n="how.step1Title">Choose language</h3>
+              <p data-i18n="how.step1Body">Vendors can switch between English and Arabic at any time with proper direction and spacing.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">2</span>
+              <h3 data-i18n="how.step2Title">Sign in securely</h3>
+              <p data-i18n="how.step2Body">The frontend attempts your live backend login first, then uses demo mode when the API is not available.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">3</span>
+              <h3 data-i18n="how.step3Title">Manage products</h3>
+              <p data-i18n="how.step3Body">Search, filter, and update prices from a responsive table that still works on mobile and tablet.</p>
+            </article>
+            <article class="step-card">
+              <span class="step-number">4</span>
+              <h3 data-i18n="how.step4Title">Publish on gumla.app</h3>
+              <p data-i18n="how.step4Body">Host the static frontend on GitHub Pages with the included CNAME file and point the API to your live backend.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta" id="contact">
+        <div class="shell">
+          <div class="cta-card">
+            <div>
+              <span class="eyebrow" style="background: rgba(255,255,255,0.14); color: #fff;" data-i18n="cta.eyebrow">Launch Ready</span>
+              <h2 class="section-title" style="color:#fff; margin-top:14px;" data-i18n="cta.title">Ready to publish the Gumla vendor portal?</h2>
+              <p data-i18n="cta.body">Enter your contact email and this demo will confirm the onboarding request. For production, connect the static site to GitHub Pages and the API to your live backend host.</p>
+            </div>
+            <div class="cta-form">
+              <input class="input" id="cta-email" type="email" placeholder="your@business.com" data-i18n-placeholder="cta.placeholder" />
+              <button class="btn btn-primary" onclick="handleRequestAccess()" data-i18n="cta.button">Request Access</button>
+              <div id="cta-message" class="field-hint"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page" id="page-login">
+      <div class="shell login-shell">
+        <div class="login-grid">
+          <aside class="login-brand">
+            <div>
+              <div class="brand" style="color:#fff;">
+                <span class="brand-mark" aria-hidden="true"></span>
+                <span data-i18n="login.brand">Gumla Vendor Portal</span>
+              </div>
+              <h1 data-i18n="login.title">Your products. Your prices. Your control.</h1>
+              <p data-i18n="login.subtitle">The layout is now responsive, the colors match Gumla, and Arabic support is built in from the start.</p>
+              <ul>
+                <li data-i18n="login.point1">Responsive dashboard for desktop, tablet, and mobile</li>
+                <li data-i18n="login.point2">Arabic and English with RTL/LTR switching</li>
+                <li data-i18n="login.point3">GitHub Pages deployment for gumla.app</li>
+                <li data-i18n="login.point4">Configurable API endpoint for live backend connection</li>
+              </ul>
+            </div>
+            <small data-i18n="login.footer">Gumla Vendor Portal v3.0</small>
+          </aside>
+
+          <section class="login-panel">
+            <h2 data-i18n="login.formTitle">Vendor sign in</h2>
+            <p data-i18n="login.formSub">Use the backend API if available, or test with the demo account below.</p>
+
+            <div id="login-alert" class="alert alert-error hidden"></div>
+
+            <div class="field">
+              <label for="login-email" data-i18n="login.email">Email address</label>
+              <input class="input" id="login-email" type="email" autocomplete="email" placeholder="demo@gumla.com" />
+              <span class="error-text" id="login-email-error" data-i18n="errors.email">Please enter a valid email.</span>
+            </div>
+
+            <div class="field">
+              <label for="login-password" data-i18n="login.password">Password</label>
+              <input class="input" id="login-password" type="password" autocomplete="current-password" placeholder="demo1234" />
+              <span class="error-text" id="login-password-error" data-i18n="errors.password">Please enter your password.</span>
+            </div>
+
+            <div class="field">
+              <label for="api-base" data-i18n="settings.apiBase">API base URL</label>
+              <input class="input" id="api-base" type="text" placeholder="https://api.gumla.app" />
+              <span class="field-hint" data-i18n="login.apiHint">Leave it as-is for the inferred backend, or change it to your live API.</span>
+            </div>
+
+            <button class="btn btn-primary btn-full" id="login-button" onclick="handleLogin()" data-i18n="login.submit">Sign in to dashboard</button>
+
+            <div class="demo-box">
+              <strong data-i18n="login.demo">Demo credentials</strong>
+              <div class="field-hint">Email: demo@gumla.com</div>
+              <div class="field-hint">Password: demo1234</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="page" id="page-dashboard">
+      <div class="shell dashboard-shell">
+        <div class="dashboard-layout">
+          <aside class="dashboard-sidebar">
+            <section class="dashboard-card vendor-card">
+              <div class="vendor-top">
+                <div class="vendor-avatar" id="vendor-avatar">AH</div>
+                <div>
+                  <strong id="vendor-name">Ahmed Hassan</strong><br />
+                  <small id="vendor-company">Hassan Electronics Co.</small>
+                </div>
+              </div>
+              <p style="margin:18px 0 0;" data-i18n="dashboard.vendorCard">Vendor account connected to Gumla marketplace.</p>
+            </section>
+
+            <section class="dashboard-card">
+              <div class="dashboard-nav">
+                <button class="nav-tab active" data-tab="overview" onclick="setActiveTab('overview')" data-i18n="dashboard.overview">Overview</button>
+                <button class="nav-tab" data-tab="products" onclick="setActiveTab('products')" data-i18n="dashboard.products">Products</button>
+                <button class="nav-tab" data-tab="pricing" onclick="setActiveTab('pricing')" data-i18n="dashboard.pricing">Pricing</button>
+                <button class="nav-tab" data-tab="history" onclick="setActiveTab('history')" data-i18n="dashboard.history">History</button>
+                <button class="nav-tab" data-tab="settings" onclick="setActiveTab('settings')" data-i18n="dashboard.settings">Settings</button>
+              </div>
+            </section>
+          </aside>
+
+          <div class="dashboard-main">
+            <section class="dashboard-card">
+              <div class="dashboard-top">
+                <div>
+                  <h2 id="dashboard-title" data-i18n="dashboard.overview">Overview</h2>
+                  <p id="dashboard-subtitle" data-i18n="dashboard.overviewSub">Responsive summary of your catalog and sync status.</p>
+                </div>
+                <div class="top-actions">
+                  <input class="input search-input" id="product-search" type="search" data-i18n-placeholder="dashboard.search" placeholder="Search products, SKU, or category" oninput="filterProducts()" />
+                  <button class="btn btn-secondary" onclick="openPriceModal()" data-i18n="dashboard.updatePrice">Update price</button>
+                  <button class="btn btn-outline" onclick="logout()" data-i18n="dashboard.logout">Sign out</button>
+                </div>
+              </div>
+            </section>
+
+            <section class="dashboard-stats" id="tab-overview">
+              <article class="dashboard-card">
+                <span class="muted" data-i18n="dashboard.statProducts">Total products</span>
+                <strong id="stat-total">0</strong>
+              </article>
+              <article class="dashboard-card">
+                <span class="muted" data-i18n="dashboard.statPriced">Priced products</span>
+                <strong id="stat-priced">0</strong>
+              </article>
+              <article class="dashboard-card">
+                <span class="muted" data-i18n="dashboard.statPending">Pending prices</span>
+                <strong id="stat-pending">0</strong>
+              </article>
+              <article class="dashboard-card">
+                <span class="muted" data-i18n="dashboard.statLanguage">Current language</span>
+                <strong id="stat-language">English</strong>
+              </article>
+            </section>
+
+            <section class="dashboard-card" id="tab-products">
+              <div class="toolbar">
+                <div class="toolbar-left">
+                  <button class="chip active" data-filter="all" onclick="setStatusFilter('all', this)" data-i18n="filters.all">All</button>
+                  <button class="chip" data-filter="priced" onclick="setStatusFilter('priced', this)" data-i18n="filters.priced">Priced</button>
+                  <button class="chip" data-filter="unpriced" onclick="setStatusFilter('unpriced', this)" data-i18n="filters.unpriced">No price</button>
+                </div>
+                <div class="toolbar-right">
+                  <button class="btn btn-outline" onclick="resetFilters()" data-i18n="filters.reset">Reset filters</button>
+                </div>
+              </div>
+
+              <div class="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th data-i18n="table.product">Product</th>
+                      <th data-i18n="table.category">Category</th>
+                      <th data-i18n="table.vendorPrice">Vendor price</th>
+                      <th data-i18n="table.marketPrice">Market price</th>
+                      <th data-i18n="table.stock">Stock</th>
+                      <th data-i18n="table.sync">Sync</th>
+                      <th data-i18n="table.actions">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="products-body"></tbody>
+                </table>
+              </div>
+
+              <div class="empty-state hidden" id="products-empty" data-i18n="dashboard.empty">No products match this filter.</div>
+            </section>
+
+            <section class="dashboard-card hidden" id="tab-pricing-panel">
+              <h3 data-i18n="pricing.title">Bulk pricing helper</h3>
+              <p class="muted" data-i18n="pricing.sub">Choose a pricing action and apply it to the currently filtered products.</p>
+              <div class="cards-grid" style="grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top:18px;">
+                <div>
+                  <label class="field-hint" for="bulk-type" data-i18n="pricing.type">Adjustment type</label>
+                  <select class="select" id="bulk-type">
+                    <option value="fixed" data-i18n="pricing.fixed">Set fixed price</option>
+                    <option value="percent_up" data-i18n="pricing.increasePercent">Increase by %</option>
+                    <option value="percent_down" data-i18n="pricing.decreasePercent">Decrease by %</option>
+                    <option value="absolute_up" data-i18n="pricing.increaseAmount">Increase by amount</option>
+                    <option value="absolute_down" data-i18n="pricing.decreaseAmount">Decrease by amount</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="field-hint" for="bulk-value" data-i18n="pricing.value">Value</label>
+                  <input class="input" id="bulk-value" type="number" min="0" step="0.01" placeholder="10" />
+                </div>
+              </div>
+              <div class="top-actions" style="margin-top:18px;">
+                <button class="btn btn-primary" onclick="applyBulkPrice()" data-i18n="pricing.apply">Apply to filtered products</button>
+                <button class="btn btn-outline" onclick="resetBulkForm()" data-i18n="pricing.reset">Reset</button>
+              </div>
+              <div id="bulk-result" class="field-hint" style="margin-top:14px;"></div>
+            </section>
+
+            <section class="dashboard-card hidden" id="tab-history-panel">
+              <h3 data-i18n="history.title">Recent activity</h3>
+              <div class="activity-list" id="history-list"></div>
+            </section>
+
+            <section class="settings-grid hidden" id="tab-settings-panel">
+              <div>
+                <h3 data-i18n="settings.title">Portal settings</h3>
+                <div class="field">
+                  <label for="settings-language" data-i18n="settings.language">Default language</label>
+                  <select class="select" id="settings-language" onchange="setLanguage(this.value)">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                  </select>
+                </div>
+                <div class="field">
+                  <label for="settings-api" data-i18n="settings.apiBase">API base URL</label>
+                  <input class="input" id="settings-api" type="text" />
+                </div>
+                <button class="btn btn-primary" onclick="saveSettings()" data-i18n="settings.save">Save settings</button>
+              </div>
+
+              <div>
+                <h3 data-i18n="settings.deployTitle">Deployment notes</h3>
+                <p class="muted" data-i18n="settings.deployBody">GitHub Pages can host this frontend at gumla.app, but the backend API should run on a separate host such as api.gumla.app, Render, Railway, or your own server.</p>
+                <div class="demo-box">
+                  <div class="field-hint">Frontend: <strong>https://gumla.app</strong></div>
+                  <div class="field-hint">Suggested API: <strong>https://api.gumla.app</strong></div>
+                </div>
+              </div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell">
+      <div>© 2026 Gumla</div>
+      <div id="footer-note">gumla.app • GitHub Pages ready</div>
+    </div>
+  </footer>
+
+  <div class="modal" id="price-modal" onclick="closePriceModal(event)">
+    <div class="modal-card">
+      <h3 data-i18n="modal.title">Update product price</h3>
+      <p id="modal-subtitle" data-i18n="modal.sub">Choose a product and save the vendor price.</p>
+
+      <div class="field">
+        <label for="modal-product" data-i18n="modal.product">Product</label>
+        <select class="select" id="modal-product"></select>
+      </div>
+      <div class="field">
+        <label for="modal-price" data-i18n="modal.price">Vendor price (EGP)</label>
+        <input class="input" id="modal-price" type="number" min="0" step="0.01" placeholder="0.00" />
+        <span class="error-text" id="modal-price-error" data-i18n="errors.price">Please enter a valid price.</span>
+      </div>
+      <div class="field">
+        <label for="modal-note" data-i18n="modal.note">Note</label>
+        <input class="input" id="modal-note" type="text" data-i18n-placeholder="modal.notePlaceholder" placeholder="Optional internal note" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" onclick="closePriceModal()" data-i18n="modal.cancel">Cancel</button>
+        <button class="btn btn-primary" id="save-price-button" onclick="savePrice()" data-i18n="modal.save">Save and sync</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast-stack" id="toast-stack"></div>
+
+  <script>
+    const TRANSLATIONS = {
+      en: {
+        'nav.features': 'Features',
+        'nav.how': 'How it works',
+        'nav.contact': 'Contact',
+        'nav.login': 'Vendor Login',
+        'nav.logout': 'Sign Out',
+        'hero.eyebrow': 'B2B Marketplace Platform',
+        'hero.title': 'Manage products, pricing, and vendor updates with confidence.',
+        'hero.body': 'A responsive Gumla portal for desktop, tablet, and mobile. Vendors can work in English or Arabic, sync with Odoo, and update pricing without fighting the interface.',
+        'hero.primary': 'Open Vendor Portal',
+        'hero.secondary': 'See Workflow',
+        'hero.metric1': 'Active vendors',
+        'hero.metric2': 'Languages built in',
+        'hero.metric3': 'GitHub Pages front-end access',
+        'hero.cardTitle': 'Vendor overview',
+        'hero.cardSub': 'Responsive preview with Gumla colors',
+        'hero.live': 'Live ready',
+        'hero.synced': 'Synced',
+        'hero.pending': 'Pending price',
+        'hero.review': 'Needs review',
+        'hero.cardMetric1': 'Products',
+        'hero.cardMetric2': 'Sync health',
+        'hero.cardMetric3': 'Arabic ready',
+        'features.eyebrow': 'Platform Features',
+        'features.title': 'Built for Gumla’s real vendor workflow',
+        'features.sub': 'The frontend now scales properly, supports Arabic and English, and keeps the UI ready for a live API instead of staying locked to demo data.',
+        'features.responsiveTitle': 'Flexible sizing',
+        'features.responsiveBody': 'The dashboard no longer relies on a fixed sidebar layout that breaks smaller screens. It adapts cleanly from desktop to phone.',
+        'features.langTitle': 'Arabic + English',
+        'features.langBody': 'Language switching updates text, alignment, and page direction, so Arabic renders in proper RTL layout instead of looking mirrored or cramped.',
+        'features.brandTitle': 'Gumla branding',
+        'features.brandBody': 'The palette now uses Gumla navy, orange, and gold across the whole experience for a more consistent brand feel.',
+        'features.apiTitle': 'Configurable API',
+        'features.apiBody': 'The app can try your backend first and gracefully fall back to demo data when the API is not reachable during development.',
+        'features.hostingTitle': 'GitHub Pages ready',
+        'features.hostingBody': 'A deployment workflow and custom-domain file are included so the static frontend can be published on GitHub and connected to gumla.app.',
+        'features.syncTitle': 'Safer editing flow',
+        'features.syncBody': 'Price updates, search, filters, and status messages are all kept intact while making the interface easier to use across devices.',
+        'how.eyebrow': 'How it works',
+        'how.title': 'From vendor login to Odoo sync in four steps',
+        'how.step1Title': 'Choose language',
+        'how.step1Body': 'Vendors can switch between English and Arabic at any time with proper direction and spacing.',
+        'how.step2Title': 'Sign in securely',
+        'how.step2Body': 'The frontend attempts your live backend login first, then uses demo mode when the API is not available.',
+        'how.step3Title': 'Manage products',
+        'how.step3Body': 'Search, filter, and update prices from a responsive table that still works on mobile and tablet.',
+        'how.step4Title': 'Publish on gumla.app',
+        'how.step4Body': 'Host the static frontend on GitHub Pages with the included CNAME file and point the API to your live backend.',
+        'cta.eyebrow': 'Launch Ready',
+        'cta.title': 'Ready to publish the Gumla vendor portal?',
+        'cta.body': 'Enter your contact email and this demo will confirm the onboarding request. For production, connect the static site to GitHub Pages and the API to your live backend host.',
+        'cta.placeholder': 'your@business.com',
+        'cta.button': 'Request Access',
+        'login.brand': 'Gumla Vendor Portal',
+        'login.title': 'Your products. Your prices. Your control.',
+        'login.subtitle': 'The layout is now responsive, the colors match Gumla, and Arabic support is built in from the start.',
+        'login.point1': 'Responsive dashboard for desktop, tablet, and mobile',
+        'login.point2': 'Arabic and English with RTL/LTR switching',
+        'login.point3': 'GitHub Pages deployment for gumla.app',
+        'login.point4': 'Configurable API endpoint for live backend connection',
+        'login.footer': 'Gumla Vendor Portal v3.0',
+        'login.formTitle': 'Vendor sign in',
+        'login.formSub': 'Use the backend API if available, or test with the demo account below.',
+        'login.email': 'Email address',
+        'login.password': 'Password',
+        'login.apiHint': 'Leave it as-is for the inferred backend, or change it to your live API.',
+        'login.submit': 'Sign in to dashboard',
+        'login.demo': 'Demo credentials',
+        'dashboard.vendorCard': 'Vendor account connected to Gumla marketplace.',
+        'dashboard.overview': 'Overview',
+        'dashboard.products': 'Products',
+        'dashboard.pricing': 'Pricing',
+        'dashboard.history': 'History',
+        'dashboard.settings': 'Settings',
+        'dashboard.overviewSub': 'Responsive summary of your catalog and sync status.',
+        'dashboard.search': 'Search products, SKU, or category',
+        'dashboard.updatePrice': 'Update price',
+        'dashboard.logout': 'Sign out',
+        'dashboard.statProducts': 'Total products',
+        'dashboard.statPriced': 'Priced products',
+        'dashboard.statPending': 'Pending prices',
+        'dashboard.statLanguage': 'Current language',
+        'dashboard.empty': 'No products match this filter.',
+        'filters.all': 'All',
+        'filters.priced': 'Priced',
+        'filters.unpriced': 'No price',
+        'filters.reset': 'Reset filters',
+        'pricing.title': 'Bulk pricing helper',
+        'pricing.sub': 'Choose a pricing action and apply it to the currently filtered products.',
+        'pricing.type': 'Adjustment type',
+        'pricing.value': 'Value',
+        'pricing.fixed': 'Set fixed price',
+        'pricing.increasePercent': 'Increase by %',
+        'pricing.decreasePercent': 'Decrease by %',
+        'pricing.increaseAmount': 'Increase by amount',
+        'pricing.decreaseAmount': 'Decrease by amount',
+        'pricing.apply': 'Apply to filtered products',
+        'pricing.reset': 'Reset',
+        'history.title': 'Recent activity',
+        'settings.title': 'Portal settings',
+        'settings.language': 'Default language',
+        'settings.apiBase': 'API base URL',
+        'settings.save': 'Save settings',
+        'settings.deployTitle': 'Deployment notes',
+        'settings.deployBody': 'GitHub Pages can host this frontend at gumla.app, but the backend API should run on a separate host such as api.gumla.app, Render, Railway, or your own server.',
+        'modal.title': 'Update product price',
+        'modal.sub': 'Choose a product and save the vendor price.',
+        'modal.product': 'Product',
+        'modal.price': 'Vendor price (EGP)',
+        'modal.note': 'Note',
+        'modal.notePlaceholder': 'Optional internal note',
+        'modal.cancel': 'Cancel',
+        'modal.save': 'Save and sync',
+        'table.product': 'Product',
+        'table.category': 'Category',
+        'table.vendorPrice': 'Vendor price',
+        'table.marketPrice': 'Market price',
+        'table.stock': 'Stock',
+        'table.sync': 'Sync',
+        'table.actions': 'Actions',
+        'errors.email': 'Please enter a valid email.',
+        'errors.password': 'Please enter your password.',
+        'errors.price': 'Please enter a valid price.'
+      },
+      ar: {
+        'nav.features': 'المميزات',
+        'nav.how': 'كيف يعمل',
+        'nav.contact': 'التواصل',
+        'nav.login': 'دخول المورد',
+        'nav.logout': 'تسجيل الخروج',
+        'hero.eyebrow': 'منصة تجارة بين الشركات',
+        'hero.title': 'إدارة المنتجات والأسعار وتحديثات الموردين بثقة.',
+        'hero.body': 'بوابة Gumla متجاوبة بالكامل على الكمبيوتر والتابلت والموبايل. يمكن للمورد العمل بالعربية أو الإنجليزية مع مزامنة Odoo بدون مشاكل في الواجهة.',
+        'hero.primary': 'فتح بوابة الموردين',
+        'hero.secondary': 'عرض سير العمل',
+        'hero.metric1': 'مورد نشط',
+        'hero.metric2': 'لغتان مدمجتان',
+        'hero.metric3': 'واجهة مستضافة على GitHub Pages',
+        'hero.cardTitle': 'نظرة عامة للمورد',
+        'hero.cardSub': 'معاينة متجاوبة بألوان Gumla',
+        'hero.live': 'جاهزة للنشر',
+        'hero.synced': 'متزامن',
+        'hero.pending': 'سعر غير مكتمل',
+        'hero.review': 'يحتاج مراجعة',
+        'hero.cardMetric1': 'منتج',
+        'hero.cardMetric2': 'سلامة المزامنة',
+        'hero.cardMetric3': 'جاهزة للعربية',
+        'features.eyebrow': 'مميزات المنصة',
+        'features.title': 'مصممة لسير عمل موردي Gumla الحقيقي',
+        'features.sub': 'الواجهة الآن تتكيّف مع جميع المقاسات، وتدعم العربية والإنجليزية، وأصبحت جاهزة للاتصال بواجهة API حقيقية بدل الاعتماد على الديمو فقط.',
+        'features.responsiveTitle': 'مقاسات مرنة',
+        'features.responsiveBody': 'لوحة التحكم لم تعد تعتمد على شريط جانبي ثابت يسبب مشاكل في الشاشات الأصغر، بل تتكيف بسلاسة من الكمبيوتر إلى الهاتف.',
+        'features.langTitle': 'العربية والإنجليزية',
+        'features.langBody': 'تبديل اللغة يحدّث النصوص والمحاذاة واتجاه الصفحة بحيث تظهر العربية بشكل RTL صحيح.',
+        'features.brandTitle': 'هوية Gumla',
+        'features.brandBody': 'تم اعتماد ألوان Gumla الأساسية: الكحلي والبرتقالي والذهبي في كامل التجربة.',
+        'features.apiTitle': 'API قابل للإعداد',
+        'features.apiBody': 'التطبيق يحاول الاتصال بالباك إند الحقيقي أولاً ثم يرجع إلى بيانات تجريبية إذا لم تكن الواجهة متاحة أثناء التطوير.',
+        'features.hostingTitle': 'جاهزة لـ GitHub Pages',
+        'features.hostingBody': 'تمت إضافة ملفات النشر والدومين المخصص لرفع الواجهة على GitHub وربطها مع gumla.app.',
+        'features.syncTitle': 'تدفق تعديل أوضح',
+        'features.syncBody': 'تحديث الأسعار والبحث والفلاتر ورسائل الحالة ما زالت موجودة ولكن بشكل أسهل على جميع الأجهزة.',
+        'how.eyebrow': 'كيف يعمل',
+        'how.title': 'من دخول المورد حتى مزامنة Odoo في أربع خطوات',
+        'how.step1Title': 'اختر اللغة',
+        'how.step1Body': 'يمكن للمورد التبديل بين العربية والإنجليزية في أي وقت مع اتجاه ومحاذاة صحيحة.',
+        'how.step2Title': 'سجل الدخول بأمان',
+        'how.step2Body': 'الواجهة تحاول تسجيل الدخول عبر الباك إند الحقيقي أولاً ثم تستخدم وضع الديمو عند غياب الـ API.',
+        'how.step3Title': 'أدر المنتجات',
+        'how.step3Body': 'ابحث وفلتر وحدّث الأسعار من جدول متجاوب يعمل على الموبايل والتابلت.',
+        'how.step4Title': 'انشر على gumla.app',
+        'how.step4Body': 'استضف الواجهة الثابتة على GitHub Pages باستخدام ملف CNAME المرفق ثم اربطها بباك إند مباشر.',
+        'cta.eyebrow': 'جاهزة للإطلاق',
+        'cta.title': 'هل أنتِ جاهزة لنشر بوابة موردي Gumla؟',
+        'cta.body': 'أدخلي البريد الإلكتروني وسيؤكد هذا النموذج الطلب تجريبياً. في الإنتاج اربطي الواجهة مع GitHub Pages والـ API مع الاستضافة المناسبة.',
+        'cta.placeholder': 'your@business.com',
+        'cta.button': 'طلب وصول',
+        'login.brand': 'بوابة موردي Gumla',
+        'login.title': 'منتجاتك. أسعارك. تحكمك الكامل.',
+        'login.subtitle': 'تم إصلاح المقاسات، وتحديث الألوان لتطابق Gumla، وإضافة دعم العربية من البداية.',
+        'login.point1': 'لوحة تحكم متجاوبة للكمبيوتر والتابلت والموبايل',
+        'login.point2': 'العربية والإنجليزية مع RTL وLTR',
+        'login.point3': 'نشر GitHub Pages على gumla.app',
+        'login.point4': 'إعداد سهل لرابط الـ API المباشر',
+        'login.footer': 'بوابة موردي Gumla الإصدار 3.0',
+        'login.formTitle': 'دخول المورد',
+        'login.formSub': 'استخدمي الباك إند إذا كان متاحاً، أو جرّبي بحساب الديمو بالأسفل.',
+        'login.email': 'البريد الإلكتروني',
+        'login.password': 'كلمة المرور',
+        'login.apiHint': 'اتركيه كما هو لاستخدام الـ API المتوقع تلقائياً، أو غيّريه إلى رابط الباك إند المباشر.',
+        'login.submit': 'الدخول إلى لوحة التحكم',
+        'login.demo': 'بيانات الدخول التجريبية',
+        'dashboard.vendorCard': 'حساب المورد متصل بسوق Gumla.',
+        'dashboard.overview': 'نظرة عامة',
+        'dashboard.products': 'المنتجات',
+        'dashboard.pricing': 'الأسعار',
+        'dashboard.history': 'السجل',
+        'dashboard.settings': 'الإعدادات',
+        'dashboard.overviewSub': 'ملخص متجاوب للكتالوج وحالة المزامنة.',
+        'dashboard.search': 'ابحثي في المنتجات أو SKU أو الفئة',
+        'dashboard.updatePrice': 'تحديث سعر',
+        'dashboard.logout': 'تسجيل الخروج',
+        'dashboard.statProducts': 'إجمالي المنتجات',
+        'dashboard.statPriced': 'المنتجات المسعّرة',
+        'dashboard.statPending': 'أسعار معلقة',
+        'dashboard.statLanguage': 'اللغة الحالية',
+        'dashboard.empty': 'لا توجد منتجات مطابقة لهذا الفلتر.',
+        'filters.all': 'الكل',
+        'filters.priced': 'مسعّر',
+        'filters.unpriced': 'بدون سعر',
+        'filters.reset': 'إعادة الفلاتر',
+        'pricing.title': 'مساعد التسعير الجماعي',
+        'pricing.sub': 'اختاري نوع التعديل وطبقيه على المنتجات الظاهرة حالياً.',
+        'pricing.type': 'نوع التعديل',
+        'pricing.value': 'القيمة',
+        'pricing.fixed': 'تحديد سعر ثابت',
+        'pricing.increasePercent': 'زيادة بنسبة %',
+        'pricing.decreasePercent': 'خفض بنسبة %',
+        'pricing.increaseAmount': 'زيادة بمبلغ',
+        'pricing.decreaseAmount': 'خفض بمبلغ',
+        'pricing.apply': 'تطبيق على المنتجات الظاهرة',
+        'pricing.reset': 'إعادة',
+        'history.title': 'آخر النشاطات',
+        'settings.title': 'إعدادات البوابة',
+        'settings.language': 'اللغة الافتراضية',
+        'settings.apiBase': 'رابط API الأساسي',
+        'settings.save': 'حفظ الإعدادات',
+        'settings.deployTitle': 'ملاحظات النشر',
+        'settings.deployBody': 'يمكن لـ GitHub Pages استضافة الواجهة على gumla.app، لكن الباك إند يجب أن يعمل على استضافة منفصلة مثل api.gumla.app أو Render أو Railway أو سيرفرك الخاص.',
+        'modal.title': 'تحديث سعر المنتج',
+        'modal.sub': 'اختاري المنتج ثم احفظي سعر المورد.',
+        'modal.product': 'المنتج',
+        'modal.price': 'سعر المورد بالجنيه',
+        'modal.note': 'ملاحظة',
+        'modal.notePlaceholder': 'ملاحظة داخلية اختيارية',
+        'modal.cancel': 'إلغاء',
+        'modal.save': 'حفظ ومزامنة',
+        'table.product': 'المنتج',
+        'table.category': 'الفئة',
+        'table.vendorPrice': 'سعر المورد',
+        'table.marketPrice': 'سعر السوق',
+        'table.stock': 'المخزون',
+        'table.sync': 'المزامنة',
+        'table.actions': 'الإجراءات',
+        'errors.email': 'يرجى إدخال بريد إلكتروني صحيح.',
+        'errors.password': 'يرجى إدخال كلمة المرور.',
+        'errors.price': 'يرجى إدخال سعر صحيح.'
+      }
+    };
+
+    const DEMO_PRODUCTS = [
+      { id: 1, name: 'Laptop Stand Pro', sku: 'LS-0041', category: 'Accessories', emoji: '💻', vendorPrice: 799, marketPrice: 950, stock: 45, odooSync: 'synced' },
+      { id: 2, name: 'USB-C Hub 7-in-1', sku: 'UH-0112', category: 'Connectivity', emoji: '🔌', vendorPrice: 1250, marketPrice: 1400, stock: 12, odooSync: 'synced' },
+      { id: 3, name: 'Wireless Keyboard MX', sku: 'WK-0033', category: 'Peripherals', emoji: '⌨️', vendorPrice: 580, marketPrice: 720, stock: 8, odooSync: 'synced' },
+      { id: 4, name: 'Gaming Mouse G502', sku: 'GM-0089', category: 'Peripherals', emoji: '🖱️', vendorPrice: null, marketPrice: 850, stock: 0, odooSync: 'pending' },
+      { id: 5, name: 'Mechanical Keyboard', sku: 'MK-0201', category: 'Peripherals', emoji: '⌨️', vendorPrice: 1100, marketPrice: 1350, stock: 22, odooSync: 'synced' },
+      { id: 6, name: '27" 4K Monitor', sku: 'MN-0055', category: 'Displays', emoji: '🖥️', vendorPrice: 8500, marketPrice: 9800, stock: 5, odooSync: 'synced' },
+      { id: 7, name: 'Webcam HD 1080p', sku: 'WC-0018', category: 'Video', emoji: '📷', vendorPrice: null, marketPrice: 650, stock: 30, odooSync: 'pending' },
+      { id: 8, name: 'USB Microphone', sku: 'MIC-044', category: 'Audio', emoji: '🎤', vendorPrice: 920, marketPrice: 1100, stock: 17, odooSync: 'synced' },
+      { id: 9, name: 'HDMI Cable 2m', sku: 'HC-0099', category: 'Cables', emoji: '🔗', vendorPrice: 85, marketPrice: 110, stock: 120, odooSync: 'synced' },
+      { id: 10, name: 'Portable SSD 1TB', sku: 'SSD-103', category: 'Storage', emoji: '💾', vendorPrice: null, marketPrice: 3200, stock: 9, odooSync: 'pending' },
+      { id: 11, name: 'Laptop Cooling Pad', sku: 'CP-0031', category: 'Accessories', emoji: '❄️', vendorPrice: 320, marketPrice: 420, stock: 55, odooSync: 'synced' },
+      { id: 12, name: 'Noise-Cancel Headset', sku: 'HS-0077', category: 'Audio', emoji: '🎧', vendorPrice: 2100, marketPrice: 2600, stock: 6, odooSync: 'synced' },
+      { id: 13, name: 'USB Flash 64GB', sku: 'UF-0060', category: 'Storage', emoji: '🗂️', vendorPrice: 120, marketPrice: 160, stock: 200, odooSync: 'synced' },
+      { id: 14, name: 'Ethernet Switch 8P', sku: 'ES-0022', category: 'Networking', emoji: '🌐', vendorPrice: null, marketPrice: 780, stock: 3, odooSync: 'pending' }
+    ];
+
+    const DEMO_HISTORY = [
+      { type: 'green', text: 'Laptop Stand Pro price updated to EGP 799', time: '2m ago' },
+      { type: 'green', text: 'USB-C Hub 7-in-1 synced to Odoo successfully', time: '8m ago' },
+      { type: 'yellow', text: 'Gaming Mouse G502 still needs a vendor price', time: '1h ago' },
+      { type: 'red', text: 'Webcam HD 1080p sync is pending retry', time: '5h ago' }
+    ];
+
+    const APP = {
+      language: localStorage.getItem('gumla_language') || 'en',
+      page: 'landing',
+      currentTab: 'overview',
+      filterStatus: 'all',
+      filterSearch: '',
+      currentUser: null,
+      authToken: null,
+      products: [],
+      history: [...DEMO_HISTORY],
+      editingProductId: null,
+      apiBase: localStorage.getItem('gumla_api_base') || inferApiBase(),
+      usingDemoMode: true
+    };
+
+    function inferApiBase() {
+      const host = window.location.hostname;
+      if (!host || host === 'localhost' || host === '127.0.0.1') return 'http://localhost:4000';
+      if (host === 'gumla.app' || host.endsWith('.github.io')) return 'https://api.gumla.app';
+      return `${window.location.protocol}//${host.replace(/^www\./, 'api.')}`;
+    }
+
+    function t(key) {
+      return TRANSLATIONS[APP.language][key] || TRANSLATIONS.en[key] || key;
+    }
+
+    function setLanguage(language) {
+      APP.language = language;
+      localStorage.setItem('gumla_language', language);
+      document.documentElement.lang = language;
+      document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
+      document.getElementById('lang-en').classList.toggle('active', language === 'en');
+      document.getElementById('lang-ar').classList.toggle('active', language === 'ar');
+      document.getElementById('settings-language').value = language;
+      document.getElementById('stat-language').textContent = language === 'ar' ? 'العربية' : 'English';
+
+      document.querySelectorAll('[data-i18n]').forEach((element) => {
+        element.textContent = t(element.dataset.i18n);
+      });
+      document.querySelectorAll('[data-i18n-placeholder]').forEach((element) => {
+        element.placeholder = t(element.dataset.i18nPlaceholder);
+      });
+
+      const authBtn = document.getElementById('nav-auth-btn');
+      authBtn.textContent = APP.currentUser ? t('nav.logout') : t('nav.login');
+      renderProducts();
+      renderHistory();
+      updateDashboardCounts();
+      refreshDashboardHeaders();
+    }
+
+    function showPage(page) {
+      APP.page = page;
+      document.querySelectorAll('.page').forEach((section) => section.classList.remove('active'));
+      document.getElementById(`page-${page}`).classList.add('active');
+      window.scrollTo(0, 0);
+    }
+
+    function handleAuthAction() {
+      if (APP.currentUser) {
+        logout();
+      } else {
+        showPage('login');
+      }
+    }
+
+    function getFormattedCurrency(value) {
+      if (value === null || value === undefined || Number.isNaN(value)) return APP.language === 'ar' ? 'غير محدد' : 'Not set';
+      return new Intl.NumberFormat(APP.language === 'ar' ? 'ar-EG' : 'en-EG', {
+        style: 'currency',
+        currency: 'EGP',
+        maximumFractionDigits: 0
+      }).format(value);
+    }
+
+    function normalizeProducts(apiProducts) {
+      return apiProducts.map((product, index) => ({
+        id: product.id,
+        name: product.name,
+        sku: product.sku || `SKU-${product.id}`,
+        category: product.category || 'General',
+        emoji: DEMO_PRODUCTS[index % DEMO_PRODUCTS.length]?.emoji || '📦',
+        vendorPrice: product.vendorPrice ?? null,
+        marketPrice: product.marketPrice ?? product.listPrice ?? 0,
+        stock: product.stock ?? 0,
+        odooSync: product.odooSync || 'synced',
+        supplierInfoId: product.supplierInfoId || null
+      }));
+    }
+
+    function getFilteredProducts() {
+      return APP.products.filter((product) => {
+        const statusOk =
+          APP.filterStatus === 'all' ||
+          (APP.filterStatus === 'priced' && product.vendorPrice !== null) ||
+          (APP.filterStatus === 'unpriced' && product.vendorPrice === null);
+
+        const query = APP.filterSearch.trim().toLowerCase();
+        const searchOk =
+          !query ||
+          product.name.toLowerCase().includes(query) ||
+          product.sku.toLowerCase().includes(query) ||
+          product.category.toLowerCase().includes(query);
+
+        return statusOk && searchOk;
+      });
+    }
+
+    function renderProducts() {
+      const rows = getFilteredProducts();
+      const body = document.getElementById('products-body');
+      const empty = document.getElementById('products-empty');
+
+      if (!body) return;
+
+      body.innerHTML = rows.map((product) => {
+        const stockClass = product.stock === 0 ? 'pill-danger' : product.stock < 10 ? 'pill-warning' : 'pill-success';
+        const stockLabel = product.stock === 0
+          ? (APP.language === 'ar' ? 'نفد المخزون' : 'Out of stock')
+          : `${product.stock}`;
+        const syncLabel = product.odooSync === 'synced'
+          ? (APP.language === 'ar' ? 'متزامن' : 'Synced')
+          : (APP.language === 'ar' ? 'معلق' : 'Pending');
+
+        return `
+          <tr>
+            <td>
+              <div class="product-meta">
+                <span class="product-icon">${product.emoji}</span>
+                <div>
+                  <strong>${product.name}</strong><br />
+                  <span class="muted">${product.sku}</span>
+                </div>
+              </div>
+            </td>
+            <td>${product.category}</td>
+            <td>${getFormattedCurrency(product.vendorPrice)}</td>
+            <td>${getFormattedCurrency(product.marketPrice)}</td>
+            <td><span class="pill ${stockClass}">${stockLabel}</span></td>
+            <td><span class="pill ${product.odooSync === 'synced' ? 'pill-success' : 'pill-warning'}">${syncLabel}</span></td>
+            <td><button class="btn btn-outline" onclick="openPriceModal(${product.id})">${APP.language === 'ar' ? 'تعديل' : 'Edit'}</button></td>
+          </tr>
+        `;
+      }).join('');
+
+      empty.classList.toggle('hidden', rows.length > 0);
+      populateProductSelect();
+    }
+
+    function renderHistory() {
+      const container = document.getElementById('history-list');
+      container.innerHTML = APP.history.map((item) => `
+        <div class="activity-item">
+          <span class="activity-dot ${item.type === 'yellow' ? 'yellow' : item.type === 'red' ? 'red' : ''}"></span>
+          <div>${item.text}</div>
+          <time class="muted">${item.time}</time>
+        </div>
+      `).join('');
+    }
+
+    function refreshDashboardHeaders() {
+      const map = {
+        overview: {
+          title: t('dashboard.overview'),
+          subtitle: t('dashboard.overviewSub')
+        },
+        products: {
+          title: t('dashboard.products'),
+          subtitle: APP.language === 'ar' ? 'فلترة وبحث وتعديل أسعار المنتجات.' : 'Filter, search, and update product prices.'
+        },
+        pricing: {
+          title: t('dashboard.pricing'),
+          subtitle: APP.language === 'ar' ? 'تحديث مجموعة منتجات دفعة واحدة.' : 'Update groups of products in one action.'
+        },
+        history: {
+          title: t('dashboard.history'),
+          subtitle: APP.language === 'ar' ? 'سجل آخر التعديلات وحالة المزامنة.' : 'Recent updates and sync activity.'
+        },
+        settings: {
+          title: t('dashboard.settings'),
+          subtitle: APP.language === 'ar' ? 'إدارة اللغة ورابط الـ API وإعدادات النشر.' : 'Manage language, API base URL, and deployment settings.'
+        }
+      };
+
+      document.getElementById('dashboard-title').textContent = map[APP.currentTab].title;
+      document.getElementById('dashboard-subtitle').textContent = map[APP.currentTab].subtitle;
+    }
+
+    function setActiveTab(tab) {
+      APP.currentTab = tab;
+      document.querySelectorAll('.nav-tab').forEach((button) => {
+        button.classList.toggle('active', button.dataset.tab === tab);
+      });
+
+      document.getElementById('tab-overview').classList.toggle('hidden', tab !== 'overview');
+      document.getElementById('tab-products').classList.toggle('hidden', tab !== 'products' && tab !== 'overview');
+      document.getElementById('tab-pricing-panel').classList.toggle('hidden', tab !== 'pricing');
+      document.getElementById('tab-history-panel').classList.toggle('hidden', tab !== 'history');
+      document.getElementById('tab-settings-panel').classList.toggle('hidden', tab !== 'settings');
+      refreshDashboardHeaders();
+    }
+
+    function updateDashboardCounts() {
+      const total = APP.products.length;
+      const priced = APP.products.filter((product) => product.vendorPrice !== null).length;
+      const pending = total - priced;
+      document.getElementById('stat-total').textContent = total;
+      document.getElementById('stat-priced').textContent = priced;
+      document.getElementById('stat-pending').textContent = pending;
+      document.getElementById('stat-language').textContent = APP.language === 'ar' ? 'العربية' : 'English';
+      document.getElementById('hero-total-products').textContent = total || DEMO_PRODUCTS.length;
+    }
+
+    function setStatusFilter(status, button) {
+      APP.filterStatus = status;
+      document.querySelectorAll('.chip[data-filter]').forEach((chip) => chip.classList.remove('active'));
+      if (button) button.classList.add('active');
+      renderProducts();
+    }
+
+    function filterProducts() {
+      APP.filterSearch = document.getElementById('product-search').value;
+      renderProducts();
+    }
+
+    function resetFilters() {
+      APP.filterStatus = 'all';
+      APP.filterSearch = '';
+      document.getElementById('product-search').value = '';
+      document.querySelectorAll('.chip[data-filter]').forEach((chip) => chip.classList.toggle('active', chip.dataset.filter === 'all'));
+      renderProducts();
+    }
+
+    function populateProductSelect() {
+      const select = document.getElementById('modal-product');
+      if (!select) return;
+      select.innerHTML = APP.products.map((product) => `<option value="${product.id}">${product.name} (${product.sku})</option>`).join('');
+      if (APP.editingProductId) select.value = String(APP.editingProductId);
+    }
+
+    function openPriceModal(productId) {
+      const fallback = APP.products.find((product) => product.vendorPrice === null) || APP.products[0];
+      const selected = APP.products.find((product) => product.id === productId) || fallback;
+      if (!selected) return;
+      APP.editingProductId = selected.id;
+      populateProductSelect();
+      document.getElementById('modal-product').value = String(selected.id);
+      document.getElementById('modal-price').value = selected.vendorPrice ?? '';
+      document.getElementById('modal-note').value = '';
+      document.getElementById('modal-price-error').style.display = 'none';
+      document.getElementById('price-modal').classList.add('open');
+    }
+
+    function closePriceModal(event) {
+      if (!event || event.target.id === 'price-modal') {
+        document.getElementById('price-modal').classList.remove('open');
+      }
+    }
+
+    function showToast(message, type = '') {
+      const toast = document.createElement('div');
+      toast.className = `toast ${type}`.trim();
+      toast.textContent = message;
+      document.getElementById('toast-stack').appendChild(toast);
+      setTimeout(() => {
+        toast.remove();
+      }, 3200);
+    }
+
+    async function attemptApiLogin(email, password) {
+      const response = await fetch(`${APP.apiBase.replace(/\/$/, '')}/api/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      if (!response.ok) {
+        throw new Error('login_failed');
+      }
+
+      return response.json();
+    }
+
+    async function fetchProductsFromApi(token) {
+      const response = await fetch(`${APP.apiBase.replace(/\/$/, '')}/api/products`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (!response.ok) {
+        throw new Error('products_failed');
+      }
+
+      return response.json();
+    }
+
+    function clearLoginErrors() {
+      document.getElementById('login-alert').classList.add('hidden');
+      document.getElementById('login-email-error').style.display = 'none';
+      document.getElementById('login-password-error').style.display = 'none';
+    }
+
+    async function handleLogin() {
+      clearLoginErrors();
+
+      const email = document.getElementById('login-email').value.trim();
+      const password = document.getElementById('login-password').value;
+      const button = document.getElementById('login-button');
+      APP.apiBase = document.getElementById('api-base').value.trim() || inferApiBase();
+
+      if (!email.includes('@')) {
+        document.getElementById('login-email-error').style.display = 'block';
+        return;
+      }
+      if (!password) {
+        document.getElementById('login-password-error').style.display = 'block';
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = APP.language === 'ar' ? 'جارٍ تسجيل الدخول...' : 'Signing in...';
+      localStorage.setItem('gumla_api_base', APP.apiBase);
+
+      try {
+        const loginData = await attemptApiLogin(email, password);
+        const token = loginData.token;
+        APP.authToken = token;
+        APP.currentUser = loginData.vendor || {
+          name: email.split('@')[0],
+          company: 'Gumla Vendor',
+          initials: email.slice(0, 2).toUpperCase()
+        };
+
+        let apiProducts = [];
+        try {
+          const productData = await fetchProductsFromApi(token);
+          apiProducts = normalizeProducts(productData.products || []);
+          APP.usingDemoMode = false;
+        } catch {
+          apiProducts = JSON.parse(JSON.stringify(DEMO_PRODUCTS));
+          APP.usingDemoMode = true;
+        }
+
+        APP.products = apiProducts.length ? apiProducts : JSON.parse(JSON.stringify(DEMO_PRODUCTS));
+        APP.history = [...DEMO_HISTORY];
+        finalizeLogin();
+        showToast(APP.language === 'ar' ? 'تم تسجيل الدخول عبر الباك إند.' : 'Signed in using live backend.', 'success');
+      } catch {
+        if (email === 'demo@gumla.com' && password === 'demo1234') {
+          APP.currentUser = {
+            name: 'Ahmed Hassan',
+            company: 'Hassan Electronics Co.',
+            initials: 'AH'
+          };
+          APP.products = JSON.parse(JSON.stringify(DEMO_PRODUCTS));
+          APP.history = [...DEMO_HISTORY];
+          APP.usingDemoMode = true;
+          finalizeLogin();
+          showToast(APP.language === 'ar' ? 'تم الدخول بوضع الديمو.' : 'Signed in using demo mode.', 'success');
+        } else {
+          const alert = document.getElementById('login-alert');
+          alert.textContent = APP.language === 'ar'
+            ? 'فشل تسجيل الدخول. تحققي من البيانات أو من رابط الـ API.'
+            : 'Login failed. Check the credentials or the API base URL.';
+          alert.classList.remove('hidden');
+        }
+      } finally {
+        button.disabled = false;
+        button.textContent = t('login.submit');
+      }
+    }
+
+    function finalizeLogin() {
+      document.getElementById('vendor-name').textContent = APP.currentUser.name;
+      document.getElementById('vendor-company').textContent = APP.currentUser.company;
+      document.getElementById('vendor-avatar').textContent = APP.currentUser.initials || APP.currentUser.name.slice(0, 2).toUpperCase();
+      document.getElementById('nav-auth-btn').textContent = t('nav.logout');
+      document.getElementById('settings-api').value = APP.apiBase;
+      document.getElementById('api-base').value = APP.apiBase;
+      renderProducts();
+      renderHistory();
+      updateDashboardCounts();
+      setActiveTab('overview');
+      showPage('dashboard');
+    }
+
+    function logout() {
+      APP.currentUser = null;
+      APP.authToken = null;
+      APP.products = JSON.parse(JSON.stringify(DEMO_PRODUCTS));
+      APP.history = [...DEMO_HISTORY];
+      APP.filterStatus = 'all';
+      APP.filterSearch = '';
+      document.getElementById('nav-auth-btn').textContent = t('nav.login');
+      resetFilters();
+      showPage('landing');
+    }
+
+    async function savePrice() {
+      const productId = Number(document.getElementById('modal-product').value);
+      const price = Number(document.getElementById('modal-price').value);
+      const note = document.getElementById('modal-note').value.trim();
+      const error = document.getElementById('modal-price-error');
+      const saveButton = document.getElementById('save-price-button');
+
+      if (!price || price <= 0) {
+        error.style.display = 'block';
+        return;
+      }
+
+      error.style.display = 'none';
+      saveButton.disabled = true;
+      saveButton.textContent = APP.language === 'ar' ? 'جارٍ الحفظ...' : 'Saving...';
+
+      const product = APP.products.find((item) => item.id === productId);
+
+      try {
+        if (!APP.usingDemoMode) {
+          await fetch(`${APP.apiBase.replace(/\/$/, '')}/api/products/${productId}/price`, {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${APP.authToken}`
+            },
+            body: JSON.stringify({ price, note, minQty: 1 })
+          });
+        }
+      } catch {
+        APP.usingDemoMode = true;
+      } finally {
+        if (product) {
+          product.vendorPrice = price;
+          product.odooSync = 'synced';
+        }
+
+        APP.history.unshift({
+          type: 'green',
+          text: APP.language === 'ar'
+            ? `تم تحديث سعر ${product.name} إلى ${getFormattedCurrency(price)}`
+            : `${product.name} price updated to ${getFormattedCurrency(price)}`,
+          time: APP.language === 'ar' ? 'الآن' : 'just now'
+        });
+
+        renderProducts();
+        renderHistory();
+        updateDashboardCounts();
+        closePriceModal();
+        showToast(APP.language === 'ar' ? 'تم حفظ السعر ومزامنته.' : 'Price saved and synced.', 'success');
+        saveButton.disabled = false;
+        saveButton.textContent = t('modal.save');
+      }
+    }
+
+    function applyBulkPrice() {
+      const value = Number(document.getElementById('bulk-value').value);
+      const type = document.getElementById('bulk-type').value;
+      const result = document.getElementById('bulk-result');
+      const targets = getFilteredProducts();
+
+      if (!value || value <= 0) {
+        result.textContent = APP.language === 'ar' ? 'أدخلي قيمة صحيحة أولاً.' : 'Enter a valid value first.';
+        return;
+      }
+
+      targets.forEach((product) => {
+        const base = product.vendorPrice ?? product.marketPrice;
+        if (type === 'fixed') product.vendorPrice = value;
+        if (type === 'percent_up') product.vendorPrice = Math.round(base * (1 + value / 100));
+        if (type === 'percent_down') product.vendorPrice = Math.max(0, Math.round(base * (1 - value / 100)));
+        if (type === 'absolute_up') product.vendorPrice = base + value;
+        if (type === 'absolute_down') product.vendorPrice = Math.max(0, base - value);
+        product.odooSync = 'synced';
+      });
+
+      APP.history.unshift({
+        type: 'green',
+        text: APP.language === 'ar'
+          ? `تم تطبيق تحديث جماعي على ${targets.length} منتج`
+          : `Bulk update applied to ${targets.length} products`,
+        time: APP.language === 'ar' ? 'الآن' : 'just now'
+      });
+
+      renderProducts();
+      renderHistory();
+      updateDashboardCounts();
+      result.textContent = APP.language === 'ar'
+        ? `تم تحديث ${targets.length} منتج بنجاح.`
+        : `${targets.length} products updated successfully.`;
+      showToast(result.textContent, 'success');
+    }
+
+    function resetBulkForm() {
+      document.getElementById('bulk-value').value = '';
+      document.getElementById('bulk-result').textContent = '';
+    }
+
+    function handleRequestAccess() {
+      const email = document.getElementById('cta-email').value.trim();
+      const message = document.getElementById('cta-message');
+      if (!email.includes('@')) {
+        message.textContent = APP.language === 'ar' ? 'يرجى إدخال بريد إلكتروني صحيح.' : 'Please enter a valid email address.';
+        message.style.color = 'var(--danger)';
+        return;
+      }
+      message.textContent = APP.language === 'ar'
+        ? `تم استلام طلب ${email} وسنتواصل قريباً.`
+        : `Request received for ${email}. We will be in touch soon.`;
+      message.style.color = 'rgba(255,255,255,0.86)';
+      document.getElementById('cta-email').value = '';
+    }
+
+    function saveSettings() {
+      APP.apiBase = document.getElementById('settings-api').value.trim() || inferApiBase();
+      localStorage.setItem('gumla_api_base', APP.apiBase);
+      document.getElementById('api-base').value = APP.apiBase;
+      showToast(APP.language === 'ar' ? 'تم حفظ الإعدادات.' : 'Settings saved.', 'success');
+    }
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closePriceModal();
+      if (event.key === 'Enter' && APP.page === 'login') handleLogin();
+    });
+
+    APP.products = JSON.parse(JSON.stringify(DEMO_PRODUCTS));
+    document.getElementById('api-base').value = APP.apiBase;
+    document.getElementById('settings-api').value = APP.apiBase;
+    renderProducts();
+    renderHistory();
+    updateDashboardCounts();
+    setLanguage(APP.language);
+    setActiveTab('overview');
+  </script>
+</body>
+</html>
