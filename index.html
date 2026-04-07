@@ -297,29 +297,28 @@
 
     .hero-card-top {
       display: flex;
-      align-items: flex-start;
+      align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 22px;
+      margin-bottom: 26px;
       padding-top: 18px;
     }
 
     .hero-card-heading {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 0;
     }
 
     .hero-card-heading strong {
-      color: var(--gumla-navy);
-      font-size: clamp(1.35rem, 2vw, 1.8rem);
+      color: #16181d;
+      font-size: clamp(1.8rem, 2.4vw, 2.3rem);
       font-weight: 800;
       line-height: 1.1;
     }
 
     .hero-card-heading .muted {
-      font-size: 1rem;
-      color: #75839a;
+      display: none;
     }
 
     .badge {
@@ -334,10 +333,11 @@
     }
 
     .badge-success {
-      background: rgba(15, 140, 93, 0.12);
-      color: var(--success);
+      background: #eef7ef;
+      color: #3f8169;
       padding-inline: 18px;
-      min-height: 48px;
+      min-height: 50px;
+      font-size: 0.9rem;
     }
 
     .badge-warning {
@@ -355,21 +355,22 @@
     .stats-strip .metric {
       min-width: 0;
       padding: 18px 20px;
-      background: #eef3fb;
-      border: 1px solid #d8e1ef;
+      background: #f1eee7;
+      border: 0;
       border-radius: 28px;
       box-shadow: none;
     }
 
     .stats-strip .metric strong {
-      font-size: clamp(2rem, 4vw, 2.5rem);
-      line-height: 0.95;
+      font-size: clamp(2.4rem, 4.8vw, 3.3rem);
+      line-height: 0.88;
       margin-bottom: 8px;
+      color: #111;
     }
 
     .stats-strip .metric span {
-      font-size: 0.95rem;
-      color: #70809a;
+      font-size: 0.98rem;
+      color: #67645d;
     }
 
     .hero-preview-table {
@@ -382,8 +383,8 @@
     }
 
     .hero-preview-table th {
-      color: #697791;
-      font-size: 0.8rem;
+      color: #817c74;
+      font-size: 0.84rem;
       letter-spacing: 0.12em;
     }
 
@@ -399,11 +400,33 @@
 
     .hero-preview-table td {
       font-size: 1rem;
-      color: var(--gumla-navy);
+      color: #20242c;
     }
 
     .hero-preview-table tbody tr:last-child td {
       border-bottom: 1px solid rgba(30, 48, 75, 0.08);
+    }
+
+    .hero-preview-table td:nth-child(2) {
+      color: #827f79;
+    }
+
+    .hero-price-stack {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .hero-old-price {
+      color: #8e8b85;
+      text-decoration: line-through;
+    }
+
+    .hero-new-price {
+      color: #4b8b68;
+      font-weight: 800;
     }
 
     .hero-price-pill {
@@ -415,6 +438,36 @@
       background: rgba(255, 153, 0, 0.16);
       color: #b06d07;
       font-weight: 800;
+    }
+
+    .hero-floating-toast {
+      position: absolute;
+      left: -12px;
+      bottom: -24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 22px;
+      background: rgba(255, 255, 255, 0.98);
+      border: 1px solid rgba(30, 48, 75, 0.08);
+      border-radius: 20px;
+      box-shadow: 0 18px 34px rgba(30, 48, 75, 0.16);
+      color: #1e1f22;
+      font-size: 0.98rem;
+      font-weight: 700;
+    }
+
+    .hero-toast-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #66c255, #93d65e);
+      color: #fff;
+      font-size: 1.1rem;
+      flex-shrink: 0;
     }
 
     .section {
@@ -1148,6 +1201,11 @@
         padding: 16px 12px;
       }
 
+      .hero-floating-toast {
+        position: static;
+        margin-top: 18px;
+      }
+
       .hero {
         padding-top: 28px;
       }
@@ -1221,10 +1279,10 @@
           <div class="hero-card">
             <div class="hero-card-top">
               <div class="hero-card-heading">
-                <strong data-i18n="hero.cardTitle">Vendor overview</strong>
+                <strong data-i18n="hero.cardTitle">My Products</strong>
                 <span class="muted" data-i18n="hero.cardSub">Responsive preview with Gumla colors</span>
               </div>
-              <span class="badge badge-success" data-i18n="hero.live">Live ready</span>
+              <span class="badge badge-success" data-i18n="hero.live">Live</span>
             </div>
 
             <div class="table-wrap">
@@ -1232,21 +1290,35 @@
                 <thead>
                   <tr>
                     <th data-i18n="table.product">Product</th>
+                    <th data-i18n="table.sku">SKU</th>
                     <th data-i18n="table.vendorPrice">Vendor price</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>USB-C Hub 7-in-1</td>
-                    <td>EGP 1,250</td>
-                  </tr>
-                  <tr>
                     <td>Laptop Stand Pro</td>
-                    <td>EGP 799</td>
+                    <td>LS-0041</td>
+                    <td>
+                      <span class="hero-price-stack">
+                        <span class="hero-old-price">EGP 850</span>
+                        <span class="hero-new-price">EGP 799</span>
+                      </span>
+                    </td>
                   </tr>
                   <tr>
-                    <td>Portable SSD 1TB</td>
-                    <td><span class="hero-price-pill" data-i18n="hero.pending">Pending price</span></td>
+                    <td>USB-C Hub 7-in-1</td>
+                    <td>UH-0112</td>
+                    <td><span class="hero-new-price">EGP 1,250</span></td>
+                  </tr>
+                  <tr>
+                    <td>Wireless Keyboard</td>
+                    <td>WK-0033</td>
+                    <td>
+                      <span class="hero-price-stack">
+                        <span class="hero-old-price">EGP 650</span>
+                        <span class="hero-new-price">EGP 580</span>
+                      </span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -1254,17 +1326,22 @@
 
             <div class="stats-strip">
               <div class="metric">
-                <strong id="hero-total-products">14</strong>
-                <span data-i18n="hero.cardMetric1">Products</span>
+                <strong id="hero-total-products">24</strong>
+                <span data-i18n="hero.cardMetric1">Products Listed</span>
               </div>
               <div class="metric">
-                <strong>99%</strong>
-                <span data-i18n="hero.cardMetric2">Sync health</span>
+                <strong>3</strong>
+                <span data-i18n="hero.cardMetric2">Pending Updates</span>
               </div>
               <div class="metric">
-                <strong>RTL</strong>
-                <span data-i18n="hero.cardMetric3">Arabic ready</span>
+                <strong>98%</strong>
+                <span data-i18n="hero.cardMetric3">Sync Rate</span>
               </div>
+            </div>
+
+            <div class="hero-floating-toast">
+              <span class="hero-toast-icon">✓</span>
+              <span data-i18n="hero.toast">Price updated · just now</span>
             </div>
           </div>
         </div>
@@ -1625,15 +1702,16 @@
         'hero.metric1': 'Active vendors',
         'hero.metric2': 'Languages built in',
         'hero.metric3': 'GitHub Pages front-end access',
-        'hero.cardTitle': 'Vendor overview',
+        'hero.cardTitle': 'My Products',
         'hero.cardSub': 'Responsive preview with Gumla colors',
-        'hero.live': 'Live ready',
+        'hero.live': 'Live',
         'hero.synced': 'Synced',
         'hero.pending': 'Pending price',
         'hero.review': 'Needs review',
-        'hero.cardMetric1': 'Products',
-        'hero.cardMetric2': 'Sync health',
-        'hero.cardMetric3': 'Arabic ready',
+        'hero.cardMetric1': 'Products Listed',
+        'hero.cardMetric2': 'Pending Updates',
+        'hero.cardMetric3': 'Sync Rate',
+        'hero.toast': 'Price updated · just now',
         'features.eyebrow': 'Platform Features',
         'features.title': 'Built for Gumla’s real vendor workflow',
         'features.sub': 'The frontend now scales properly, supports Arabic and English, and keeps the UI ready for a live API instead of staying locked to demo data.',
@@ -1726,7 +1804,8 @@
         'modal.save': 'Save and sync',
         'table.product': 'Product',
         'table.category': 'Category',
-        'table.vendorPrice': 'Vendor price',
+        'table.sku': 'SKU',
+        'table.vendorPrice': 'Your price',
         'table.marketPrice': 'Market price',
         'table.stock': 'Stock',
         'table.sync': 'Sync',
@@ -1749,15 +1828,16 @@
         'hero.metric1': 'مورد نشط',
         'hero.metric2': 'لغتان مدمجتان',
         'hero.metric3': 'واجهة جاهزة للنشر عبر GitHub Pages',
-        'hero.cardTitle': 'نظرة عامة للمورد',
+        'hero.cardTitle': 'منتجاتي',
         'hero.cardSub': 'معاينة متجاوبة بألوان Gumla',
-        'hero.live': 'جاهزة للنشر',
+        'hero.live': 'مباشر',
         'hero.synced': 'متزامن',
         'hero.pending': 'سعر غير مكتمل',
         'hero.review': 'يحتاج مراجعة',
-        'hero.cardMetric1': 'منتج',
-        'hero.cardMetric2': 'سلامة المزامنة',
-        'hero.cardMetric3': 'جاهزة للعربية',
+        'hero.cardMetric1': 'منتج مدرج',
+        'hero.cardMetric2': 'تحديثات معلقة',
+        'hero.cardMetric3': 'معدل المزامنة',
+        'hero.toast': 'تم تحديث السعر الآن',
         'features.eyebrow': 'مميزات المنصة',
         'features.title': 'مصممة بما يناسب سير عمل موردي Gumla',
         'features.sub': 'الواجهة الآن متجاوبة مع جميع المقاسات، وتدعم العربية والإنجليزية، وأصبحت جاهزة للاتصال بواجهة API حقيقية بدلاً من الاعتماد على وضع العرض فقط.',
@@ -1850,7 +1930,8 @@
         'modal.save': 'حفظ ومزامنة',
         'table.product': 'المنتج',
         'table.category': 'الفئة',
-        'table.vendorPrice': 'سعر المورد',
+        'table.sku': 'رمز المنتج',
+        'table.vendorPrice': 'سعرك',
         'table.marketPrice': 'سعر السوق',
         'table.stock': 'المخزون',
         'table.sync': 'المزامنة',
