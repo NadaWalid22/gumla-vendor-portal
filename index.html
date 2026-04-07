@@ -280,18 +280,20 @@
     .hero-card {
       background: rgba(255, 255, 255, 0.96);
       border: 1px solid rgba(30, 48, 75, 0.08);
-      border-radius: 40px;
-      padding: 28px 34px 34px;
-      box-shadow: 0 30px 60px rgba(30, 48, 75, 0.12);
-      overflow: visible;
+      border-radius: 34px;
+      padding: 22px 28px 26px;
+      box-shadow: 0 24px 52px rgba(30, 48, 75, 0.11);
+      overflow: hidden;
       position: relative;
     }
 
     .hero-card::before {
       content: "";
       position: absolute;
-      inset: 0 0 auto;
-      height: 8px;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 7px;
       background: linear-gradient(90deg, rgba(30, 48, 75, 0.95), var(--gumla-orange), var(--gumla-gold));
     }
 
@@ -300,8 +302,8 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 26px;
-      padding-top: 18px;
+      margin-bottom: 18px;
+      padding-top: 12px;
     }
 
     .hero-card-heading {
@@ -312,7 +314,7 @@
 
     .hero-card-heading strong {
       color: #16181d;
-      font-size: clamp(1.8rem, 2.4vw, 2.3rem);
+      font-size: clamp(1.55rem, 2vw, 2rem);
       font-weight: 800;
       line-height: 1.1;
     }
@@ -335,9 +337,9 @@
     .badge-success {
       background: #eef7ef;
       color: #3f8169;
-      padding-inline: 18px;
-      min-height: 50px;
-      font-size: 0.9rem;
+      padding-inline: 16px;
+      min-height: 42px;
+      font-size: 0.84rem;
     }
 
     .badge-warning {
@@ -348,28 +350,28 @@
     .stats-strip {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-      margin-top: 24px;
+      gap: 12px;
+      margin-top: 16px;
     }
 
     .stats-strip .metric {
       min-width: 0;
-      padding: 18px 20px;
+      padding: 14px 16px;
       background: #f1eee7;
       border: 0;
-      border-radius: 28px;
+      border-radius: 22px;
       box-shadow: none;
     }
 
     .stats-strip .metric strong {
-      font-size: clamp(2.4rem, 4.8vw, 3.3rem);
+      font-size: clamp(2rem, 4vw, 2.8rem);
       line-height: 0.88;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: #111;
     }
 
     .stats-strip .metric span {
-      font-size: 0.98rem;
+      font-size: 0.92rem;
       color: #67645d;
     }
 
@@ -379,12 +381,12 @@
 
     .hero-preview-table th,
     .hero-preview-table td {
-      padding: 20px 18px;
+      padding: 16px 14px;
     }
 
     .hero-preview-table th {
       color: #817c74;
-      font-size: 0.84rem;
+      font-size: 0.78rem;
       letter-spacing: 0.12em;
     }
 
@@ -399,7 +401,7 @@
     }
 
     .hero-preview-table td {
-      font-size: 1rem;
+      font-size: 0.96rem;
       color: #20242c;
     }
 
@@ -1163,8 +1165,8 @@
       }
 
       .hero-card {
-        padding: 22px;
-        border-radius: 30px;
+        padding: 18px 20px 22px;
+        border-radius: 28px;
       }
 
       .hero-preview-table th,
