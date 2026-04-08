@@ -2211,10 +2211,10 @@
 
               <div>
                 <h3 data-i18n="settings.deployTitle">Deployment notes</h3>
-                <p class="muted" data-i18n="settings.deployBody">GitHub Pages can host this frontend at gumlanow.com, but the backend API should run on a separate host such as api.gumlanow.com, Render, Railway, or your own server.</p>
+                <p class="muted" data-i18n="settings.deployBody">GitHub Pages can host this frontend at gumlanow.net, but the backend API should run on a separate host such as api.gumlanow.net, Render, Railway, or your own server.</p>
                 <div class="demo-box">
-                  <div class="field-hint">Frontend: <strong>https://gumlanow.com</strong></div>
-                  <div class="field-hint">Suggested API: <strong>https://api.gumlanow.com</strong></div>
+                  <div class="field-hint">Frontend: <strong>https://gumlanow.net</strong></div>
+                  <div class="field-hint">Suggested API: <strong>https://api.gumlanow.net</strong></div>
                 </div>
               </div>
             </section>
@@ -2379,7 +2379,7 @@
         'settings.apiBase': 'API base URL',
         'settings.save': 'Save settings',
         'settings.deployTitle': 'Deployment notes',
-        'settings.deployBody': 'GitHub Pages can host this frontend at gumlanow.com, but the backend API should run on a separate host such as api.gumlanow.com, Render, Railway, or your own server.',
+        'settings.deployBody': 'GitHub Pages can host this frontend at gumlanow.net, but the backend API should run on a separate host such as api.gumlanow.net, Render, Railway, or your own server.',
         'modal.title': 'Update product price',
         'modal.sub': 'Choose a product and save the vendor price.',
         'modal.product': 'Product',
@@ -2511,7 +2511,7 @@
         'settings.apiBase': 'رابط API الأساسي',
         'settings.save': 'حفظ الإعدادات',
         'settings.deployTitle': 'ملاحظات النشر',
-        'settings.deployBody': 'يمكن لـ GitHub Pages استضافة الواجهة على gumlanow.com، لكن الباك إند يجب أن يعمل على استضافة منفصلة مثل api.gumlanow.com أو Render أو Railway أو خادمك الخاص.',
+        'settings.deployBody': 'يمكن لـ GitHub Pages استضافة الواجهة على gumlanow.net، لكن الباك إند يجب أن يعمل على استضافة منفصلة مثل api.gumlanow.net أو Render أو Railway أو خادمك الخاص.',
         'modal.title': 'تحديث سعر المنتج',
         'modal.sub': 'اختر المنتج ثم احفظ سعر المورد.',
         'modal.product': 'المنتج',
@@ -2576,7 +2576,7 @@
     function inferApiBase() {
       const host = window.location.hostname;
       if (!host || host === 'localhost' || host === '127.0.0.1') return 'http://localhost:4000';
-      if (host === 'gumlanow.com' || host === 'www.gumlanow.com' || host.endsWith('.github.io')) return 'https://api.gumlanow.com';
+      if (host === 'gumlanow.net' || host === 'www.gumlanow.net' || host.endsWith('.github.io')) return 'https://api.gumlanow.net';
       return `${window.location.protocol}//${host.replace(/^www\./, 'api.')}`;
     }
 
