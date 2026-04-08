@@ -771,8 +771,13 @@
       min-height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
+      gap: 28px;
       box-shadow: var(--shadow);
+    }
+
+    .login-brand-copy {
+      max-width: 30rem;
     }
 
     .login-brand h1 {
@@ -782,19 +787,32 @@
       margin: 18px 0 14px;
     }
 
-    .login-brand p,
-    .login-brand li {
+    .login-brand p {
       color: rgba(255, 255, 255, 0.78);
       line-height: 1.8;
     }
 
-    .login-brand ul {
+    .login-brand-list {
+      margin: 14px 0 0;
       padding-inline-start: 20px;
-      margin: 18px 0 0;
+      display: grid;
+      gap: 6px;
+    }
+
+    .login-brand-list li {
+      color: rgba(255, 255, 255, 0.82);
+      line-height: 1.5;
+    }
+
+    .login-brand small {
+      color: rgba(255, 255, 255, 0.72);
     }
 
     .login-panel {
       padding: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
 
     .login-panel h2 {
@@ -817,6 +835,43 @@
     .field label {
       font-weight: 800;
       font-size: 0.96rem;
+    }
+
+    .login-options {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: -2px 0 16px;
+      flex-wrap: wrap;
+    }
+
+    .check-row {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .check-row input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--gumla-orange);
+      cursor: pointer;
+    }
+
+    .text-link {
+      color: #2a4f82;
+      font-size: 0.92rem;
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .text-link:hover {
+      text-decoration: underline;
     }
 
     .field-hint,
@@ -853,6 +908,15 @@
       border-radius: 18px;
       background: rgba(30, 48, 75, 0.05);
       color: var(--muted);
+      border: 1px solid rgba(30, 48, 75, 0.08);
+    }
+
+    .login-panel > .login-signup {
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.45;
+      text-align: center;
     }
 
     .dashboard-shell {
@@ -1260,6 +1324,27 @@
         grid-template-columns: 1fr;
       }
 
+      .login-shell {
+        padding: 20px 0 40px;
+      }
+
+      .login-grid {
+        gap: 18px;
+      }
+
+      .login-brand {
+        min-height: auto;
+        gap: 18px;
+      }
+
+      .login-brand-copy {
+        max-width: none;
+      }
+
+      .login-panel > p {
+        margin-bottom: 20px;
+      }
+
       .dashboard-sidebar {
         position: static;
       }
@@ -1337,6 +1422,32 @@
       .step-card,
       .cta-card {
         padding: 20px;
+      }
+
+      .login-shell {
+        padding: 14px 0 32px;
+      }
+
+      .login-grid {
+        gap: 14px;
+      }
+
+      .login-brand {
+        gap: 14px;
+      }
+
+      .login-brand h1 {
+        margin: 14px 0 10px;
+        line-height: 1.05;
+      }
+
+      .login-panel > p {
+        margin-bottom: 18px;
+      }
+
+      .demo-box {
+        margin-top: 16px;
+        padding: 16px;
       }
 
       .hero-card {
@@ -1613,18 +1724,18 @@
       <div class="shell login-shell">
         <div class="login-grid">
           <aside class="login-brand">
-            <div>
+            <div class="login-brand-copy">
               <div class="brand" style="color:#fff;">
                 <span class="brand-mark" aria-hidden="true"></span>
                 <span data-i18n="login.brand">Gumla Vendor Portal</span>
               </div>
               <h1 data-i18n="login.title">Your products. Your prices. Your control.</h1>
-              <p data-i18n="login.subtitle">The layout is now responsive, the colors match Gumla, and Arabic support is built in from the start.</p>
-              <ul>
-                <li data-i18n="login.point1">Responsive dashboard for desktop, tablet, and mobile</li>
-                <li data-i18n="login.point2">Arabic and English with RTL/LTR switching</li>
-                <li data-i18n="login.point3">GitHub Pages deployment for gumlanow.com</li>
-                <li data-i18n="login.point4">Configurable API endpoint for live backend connection</li>
+              <p data-i18n="login.subtitle">Sign in to manage your catalog, update pricing, and stay synced with the Gumla B2B marketplace.</p>
+              <ul class="login-brand-list">
+                <li data-i18n="login.point1">Real-time Odoo ERP integration</li>
+                <li data-i18n="login.point2">Secure, vendor-isolated access</li>
+                <li data-i18n="login.point3">Inline price editing &amp; bulk update</li>
+                <li data-i18n="login.point4">Full change audit trail</li>
               </ul>
             </div>
             <small data-i18n="login.footer">Gumla Vendor Portal v3.0</small>
@@ -1632,7 +1743,7 @@
 
           <section class="login-panel">
             <h2 data-i18n="login.formTitle">Vendor sign in</h2>
-            <p data-i18n="login.formSub">Use the backend API if available, or test with the demo account below.</p>
+            <p data-i18n="login.formSub">Access your product management dashboard.</p>
 
             <div id="login-alert" class="alert alert-error hidden"></div>
 
@@ -1648,13 +1759,17 @@
               <span class="error-text" id="login-password-error" data-i18n="errors.password">Please enter your password.</span>
             </div>
 
-            <div class="field">
-              <label for="api-base" data-i18n="settings.apiBase">API base URL</label>
-              <input class="input" id="api-base" type="text" placeholder="https://api.gumlanow.com" />
-              <span class="field-hint" data-i18n="login.apiHint">Leave it as-is for the inferred backend, or change it to your live API.</span>
+            <div class="login-options">
+              <label class="check-row" for="login-remember">
+                <input id="login-remember" type="checkbox" />
+                <span data-i18n="login.remember">Remember me</span>
+              </label>
+              <a href="#" class="text-link" onclick="handleForgotPassword(); return false;" data-i18n="login.forgot">Forgot password?</a>
             </div>
 
             <button class="btn btn-primary btn-full" id="login-button" onclick="handleLogin()" data-i18n="login.submit">Sign in to dashboard</button>
+
+            <p class="login-signup"><span data-i18n="login.notVendor">Not a vendor yet?</span> <a href="#" class="text-link" onclick="showPage('landing'); window.location.hash = 'contact'; return false;" data-i18n="login.requestAccess">Request access →</a></p>
 
             <div class="demo-box">
               <strong data-i18n="login.demo">Demo credentials</strong>
@@ -1915,18 +2030,21 @@
         'cta.button': 'Request Access',
         'login.brand': 'Gumla Vendor Portal',
         'login.title': 'Your products. Your prices. Your control.',
-        'login.subtitle': 'The layout is now responsive, the colors match Gumla, and Arabic support is built in from the start.',
-        'login.point1': 'Responsive dashboard for desktop, tablet, and mobile',
-        'login.point2': 'Arabic and English with RTL/LTR switching',
-        'login.point3': 'GitHub Pages deployment for gumlanow.com',
-        'login.point4': 'Configurable API endpoint for live backend connection',
+        'login.subtitle': 'Sign in to manage your catalog, update pricing, and stay synced with the Gumla B2B marketplace.',
+        'login.point1': 'Real-time Odoo ERP integration',
+        'login.point2': 'Secure, vendor-isolated access',
+        'login.point3': 'Inline price editing & bulk update',
+        'login.point4': 'Full change audit trail',
         'login.footer': 'Gumla Vendor Portal v3.0',
         'login.formTitle': 'Vendor sign in',
-        'login.formSub': 'Use the backend API if available, or test with the demo account below.',
+        'login.formSub': 'Access your product management dashboard.',
         'login.email': 'Email address',
         'login.password': 'Password',
-        'login.apiHint': 'Leave it as-is for the inferred backend, or change it to your live API.',
+        'login.remember': 'Remember me',
+        'login.forgot': 'Forgot password?',
         'login.submit': 'Sign in to dashboard',
+        'login.notVendor': 'Not a vendor yet?',
+        'login.requestAccess': 'Request access →',
         'login.demo': 'Demo credentials',
         'dashboard.vendorCard': 'Vendor account connected to Gumla marketplace.',
         'dashboard.overview': 'Overview',
@@ -2043,18 +2161,21 @@
         'cta.button': 'طلب وصول',
         'login.brand': 'بوابة موردي Gumla',
         'login.title': 'منتجاتك. أسعارك. تحكمك الكامل.',
-        'login.subtitle': 'تم تحسين المقاسات، وتحديث الألوان لتطابق هوية Gumla، وإضافة دعم العربية بشكل كامل.',
-        'login.point1': 'لوحة تحكم متجاوبة للكمبيوتر والتابلت والموبايل',
-        'login.point2': 'العربية والإنجليزية مع RTL وLTR',
-        'login.point3': 'نشر GitHub Pages على gumlanow.com',
-        'login.point4': 'إعداد سهل لرابط الـ API المباشر',
+        'login.subtitle': 'سجّل الدخول لإدارة الكتالوج، وتحديث الأسعار، والبقاء متزامنًا مع سوق Gumla B2B.',
+        'login.point1': 'تكامل لحظي مع نظام Odoo ERP',
+        'login.point2': 'وصول آمن ومعزول لكل مورد',
+        'login.point3': 'تعديل الأسعار مباشرةً وتحديث جماعي',
+        'login.point4': 'سجل تدقيق كامل للتغييرات',
         'login.footer': 'بوابة موردي Gumla الإصدار 3.0',
         'login.formTitle': 'دخول المورد',
-        'login.formSub': 'استخدم الباك إند إذا كان متاحاً، أو جرّب حساب العرض التجريبي بالأسفل.',
+        'login.formSub': 'ادخل إلى لوحة إدارة منتجاتك.',
         'login.email': 'البريد الإلكتروني',
         'login.password': 'كلمة المرور',
-        'login.apiHint': 'اتركه كما هو لاستخدام رابط الـ API المتوقع تلقائياً، أو غيّره إلى رابط الباك إند المباشر.',
+        'login.remember': 'تذكرني',
+        'login.forgot': 'هل نسيت كلمة المرور؟',
         'login.submit': 'الدخول إلى لوحة التحكم',
+        'login.notVendor': 'لست مورّدًا بعد؟',
+        'login.requestAccess': 'اطلب الوصول ←',
         'login.demo': 'بيانات الدخول التجريبية',
         'dashboard.vendorCard': 'حساب المورد متصل بسوق Gumla.',
         'dashboard.overview': 'نظرة عامة',
@@ -2446,7 +2567,7 @@
       const email = document.getElementById('login-email').value.trim();
       const password = document.getElementById('login-password').value;
       const button = document.getElementById('login-button');
-      APP.apiBase = document.getElementById('api-base').value.trim() || inferApiBase();
+      APP.apiBase = localStorage.getItem('gumla_api_base') || APP.apiBase || inferApiBase();
 
       if (!email.includes('@')) {
         document.getElementById('login-email-error').style.display = 'block';
@@ -2500,8 +2621,8 @@
         } else {
           const alert = document.getElementById('login-alert');
           alert.textContent = APP.language === 'ar'
-            ? 'فشل تسجيل الدخول. تحققي من البيانات أو من رابط الـ API.'
-            : 'Login failed. Check the credentials or the API base URL.';
+            ? 'فشل تسجيل الدخول. تحققي من بيانات الدخول.'
+            : 'Login failed. Check the credentials.';
           alert.classList.remove('hidden');
         }
       } finally {
@@ -2516,7 +2637,6 @@
       document.getElementById('vendor-avatar').textContent = APP.currentUser.initials || APP.currentUser.name.slice(0, 2).toUpperCase();
       document.getElementById('nav-auth-btn').textContent = t('nav.logout');
       document.getElementById('settings-api').value = APP.apiBase;
-      document.getElementById('api-base').value = APP.apiBase;
       renderProducts();
       renderHistory();
       updateDashboardCounts();
@@ -2649,10 +2769,18 @@
       document.getElementById('cta-email').value = '';
     }
 
+    function handleForgotPassword() {
+      showToast(
+        APP.language === 'ar'
+          ? 'تواصلي مع فريق Gumla لإعادة تعيين كلمة المرور.'
+          : 'Contact the Gumla team to reset your password.',
+        ''
+      );
+    }
+
     function saveSettings() {
       APP.apiBase = document.getElementById('settings-api').value.trim() || inferApiBase();
       localStorage.setItem('gumla_api_base', APP.apiBase);
-      document.getElementById('api-base').value = APP.apiBase;
       showToast(APP.language === 'ar' ? 'تم حفظ الإعدادات.' : 'Settings saved.', 'success');
     }
 
@@ -2662,7 +2790,6 @@
     });
 
     APP.products = JSON.parse(JSON.stringify(DEMO_PRODUCTS));
-    document.getElementById('api-base').value = APP.apiBase;
     document.getElementById('settings-api').value = APP.apiBase;
     renderProducts();
     renderHistory();
