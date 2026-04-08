@@ -1310,10 +1310,50 @@
 
     footer .shell {
       display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
+      flex-direction: column;
+      gap: 8px;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--gumla-navy);
+      font-weight: 800;
+    }
+
+    .footer-brand .brand-mark {
+      width: 28px;
+      height: 28px;
+    }
+
+    .footer-brand .brand-wordmark {
+      height: 24px;
+    }
+
+    .footer-copy {
+      font-size: 0.94rem;
+    }
+
+    .footer-links {
+      display: inline-flex;
+      gap: 18px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-links a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .footer-links a:hover {
+      color: var(--gumla-navy);
+      text-decoration: underline;
     }
 
     [dir="rtl"] body,
@@ -1976,8 +2016,17 @@
 
   <footer>
     <div class="shell">
-      <div>© 2026 Gumla</div>
-      <div id="footer-note">gumlanow.com</div>
+      <div class="footer-brand" aria-label="Gumla">
+        <img class="brand-mark" src="assets/logos/gumla-icon.png" alt="" aria-hidden="true" />
+        <img class="brand-wordmark brand-wordmark-en" src="assets/logos/gumla-wordmark-en.png" alt="" aria-hidden="true" />
+        <img class="brand-wordmark brand-wordmark-ar" src="assets/logos/gumla-wordmark-ar.png" alt="" aria-hidden="true" />
+      </div>
+      <div class="footer-copy">© 2025 Gumla B2B Marketplace. All rights reserved.</div>
+      <div class="footer-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Support</a>
+      </div>
     </div>
   </footer>
 
