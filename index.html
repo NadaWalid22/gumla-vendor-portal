@@ -1316,10 +1316,12 @@
     }
 
     .footer-name {
-      color: var(--gumla-navy);
-      font-weight: 800;
       justify-self: start;
       text-align: left;
+    }
+
+    .footer-name .brand-wordmark {
+      height: 24px;
     }
 
     .footer-copy {
@@ -2021,7 +2023,10 @@
 
   <footer>
     <div class="shell">
-      <div class="footer-name">Gumla</div>
+      <div class="footer-name" aria-label="Gumla">
+        <img class="brand-wordmark brand-wordmark-en" src="assets/logos/gumla-wordmark-en.png" alt="" aria-hidden="true" />
+        <img class="brand-wordmark brand-wordmark-ar" src="assets/logos/gumla-wordmark-ar.png" alt="" aria-hidden="true" />
+      </div>
       <div class="footer-copy">© 2025 Gumla B2B Marketplace. All rights reserved.</div>
       <div class="footer-links">
         <a href="#">Privacy.</a>
