@@ -807,9 +807,7 @@
     .login-brand .legacy-brand-mark {
       width: 42px;
       height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--gumla-navy) 0 45%, var(--gumla-orange) 45% 73%, var(--gumla-gold) 73% 100%);
-      box-shadow: var(--shadow-soft);
+      object-fit: contain;
       flex: 0 0 auto;
     }
 
@@ -1819,7 +1817,7 @@
           <aside class="login-brand">
             <div class="login-brand-copy">
               <div class="brand" style="color:#fff;">
-                <span class="legacy-brand-mark" aria-hidden="true"></span>
+                <img class="legacy-brand-mark" src="assets/logos/gumla-icon-white.png?v=20260408c" alt="" aria-hidden="true" />
                 <span data-i18n="login.brand">Gumla Vendor Portal</span>
               </div>
               <h1 data-i18n="login.title">Your products. Your prices. Your control.</h1>
