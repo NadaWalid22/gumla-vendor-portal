@@ -804,6 +804,15 @@
       margin-bottom: 2px;
     }
 
+    .login-brand .legacy-brand-mark {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--gumla-navy) 0 45%, var(--gumla-orange) 45% 73%, var(--gumla-gold) 73% 100%);
+      box-shadow: var(--shadow-soft);
+      flex: 0 0 auto;
+    }
+
     .login-brand .brand-wordmark {
       height: 30px;
     }
@@ -1809,10 +1818,9 @@
         <div class="login-grid">
           <aside class="login-brand">
             <div class="login-brand-copy">
-              <div class="brand" style="color:#fff;" aria-label="Gumla">
-                <img class="brand-mark" src="assets/logos/gumla-icon.png?v=20260408b" alt="" aria-hidden="true" />
-                <img class="brand-wordmark brand-wordmark-en" src="assets/logos/gumla-wordmark-en.png?v=20260408b" alt="" aria-hidden="true" />
-                <img class="brand-wordmark brand-wordmark-ar" src="assets/logos/gumla-wordmark-ar.png?v=20260408b" alt="" aria-hidden="true" />
+              <div class="brand" style="color:#fff;">
+                <span class="legacy-brand-mark" aria-hidden="true"></span>
+                <span data-i18n="login.brand">Gumla Vendor Portal</span>
               </div>
               <h1 data-i18n="login.title">Your products. Your prices. Your control.</h1>
               <p data-i18n="login.subtitle">Sign in to manage your catalog, update pricing, and stay synced with the Gumla B2B marketplace.</p>
