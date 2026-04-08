@@ -1564,6 +1564,14 @@
     }
 
     @media (max-width: 720px) {
+      html,
+      body {
+        width: 100%;
+        max-width: 100%;
+        min-width: 0;
+        overflow-x: hidden;
+      }
+
       .nav-inner,
       .shell {
         width: min(100% - 24px, var(--content-width));
@@ -1586,10 +1594,32 @@
         width: 100%;
       }
 
+      .nav-links {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .nav-actions {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: 10px;
+      }
+
       .nav-links a,
       .btn,
       .chip,
       .lang-switch {
+        width: 100%;
+      }
+
+      .lang-switch {
+        width: auto;
+        justify-self: start;
+      }
+
+      #nav-auth-btn {
         width: 100%;
       }
 
@@ -1664,8 +1694,24 @@
         padding-top: 28px;
       }
 
+      .hero-grid {
+        gap: 24px;
+      }
+
+      .hero-copy h1 {
+        max-width: none;
+      }
+
+      .hero-copy p {
+        max-width: none;
+      }
+
       .hero-bottom {
         margin-top: 26px;
+      }
+
+      .stats-strip .metric strong {
+        line-height: 1;
       }
 
       #features .shell::before,
@@ -1684,6 +1730,19 @@
 
       .activity-item time {
         grid-column: 2;
+      }
+
+      #page-landing .hero-card,
+      #page-landing .hero-card::after,
+      #page-landing .hero-stat-block,
+      #page-landing .step-number,
+      #page-landing .cta-card {
+        animation: none !important;
+      }
+
+      #page-landing .feature-card:hover {
+        transform: none;
+        box-shadow: 0 12px 26px rgba(30, 48, 75, 0.05);
       }
     }
   </style>
