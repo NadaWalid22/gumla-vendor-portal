@@ -102,11 +102,30 @@
     }
 
     .brand-mark {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--gumla-navy) 0 45%, var(--gumla-orange) 45% 73%, var(--gumla-gold) 73% 100%);
-      box-shadow: var(--shadow-soft);
+      width: 38px;
+      height: 38px;
+      object-fit: contain;
+      flex: 0 0 auto;
+    }
+
+    .brand-wordmark {
+      height: 30px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+      flex: 0 0 auto;
+    }
+
+    .brand-wordmark-ar {
+      display: none;
+    }
+
+    [dir="ar"] .brand-wordmark-en {
+      display: none;
+    }
+
+    [dir="ar"] .brand-wordmark-ar {
+      display: block;
     }
 
     .nav-links,
@@ -780,6 +799,15 @@
       max-width: 30rem;
     }
 
+    .login-brand .brand {
+      width: fit-content;
+      margin-bottom: 2px;
+    }
+
+    .login-brand .brand-wordmark {
+      height: 36px;
+    }
+
     .login-brand h1 {
       font-family: var(--font-display);
       font-size: clamp(2.2rem, 4vw, 3.5rem);
@@ -1401,6 +1429,14 @@
         width: 100%;
       }
 
+      .nav .brand {
+        width: auto;
+      }
+
+      .nav .brand-wordmark {
+        height: 26px;
+      }
+
       .dashboard-stats,
       .feature-grid,
       .steps-grid,
@@ -1491,9 +1527,10 @@
 <body>
   <nav class="nav">
     <div class="nav-inner">
-      <a class="brand" href="#" onclick="showPage('landing'); return false;">
-        <span class="brand-mark" aria-hidden="true"></span>
-        <span>Gumla</span>
+      <a class="brand" href="#" onclick="showPage('landing'); return false;" aria-label="Gumla">
+        <img class="brand-mark" src="assets/logos/gumla-icon.png" alt="" aria-hidden="true" />
+        <img class="brand-wordmark brand-wordmark-en" src="assets/logos/gumla-wordmark-en.png" alt="" aria-hidden="true" />
+        <img class="brand-wordmark brand-wordmark-ar" src="assets/logos/gumla-wordmark-ar.png" alt="" aria-hidden="true" />
       </a>
 
       <div class="nav-links" id="public-nav">
@@ -1725,9 +1762,10 @@
         <div class="login-grid">
           <aside class="login-brand">
             <div class="login-brand-copy">
-              <div class="brand" style="color:#fff;">
-                <span class="brand-mark" aria-hidden="true"></span>
-                <span data-i18n="login.brand">Gumla Vendor Portal</span>
+              <div class="brand" style="color:#fff;" aria-label="Gumla">
+                <img class="brand-mark" src="assets/logos/gumla-icon.png" alt="" aria-hidden="true" />
+                <img class="brand-wordmark brand-wordmark-en" src="assets/logos/gumla-wordmark-en.png" alt="" aria-hidden="true" />
+                <img class="brand-wordmark brand-wordmark-ar" src="assets/logos/gumla-wordmark-ar.png" alt="" aria-hidden="true" />
               </div>
               <h1 data-i18n="login.title">Your products. Your prices. Your control.</h1>
               <p data-i18n="login.subtitle">Sign in to manage your catalog, update pricing, and stay synced with the Gumla B2B marketplace.</p>
