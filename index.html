@@ -7,7 +7,7 @@
   <meta name="description" content="Gumla vendor portal for product pricing, inventory visibility, and Odoo sync." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
   <style>
     :root {
       --gumla-navy: #1e304b;
@@ -30,9 +30,18 @@
       --radius-xl: 34px;
       --sidebar-width: 280px;
       --content-width: 1280px;
-      --font-display: "Syne", "Tajawal", sans-serif;
-      --font-body: "Tajawal", system-ui, sans-serif;
+      --font-display-en: "Syne", "Manrope", sans-serif;
+      --font-body-en: "Manrope", "Tajawal", sans-serif;
+      --font-display-ar: "Tajawal", "Manrope", sans-serif;
+      --font-body-ar: "Tajawal", "Manrope", sans-serif;
+      --font-display: var(--font-display-en);
+      --font-body: var(--font-body-en);
       --transition: 0.22s ease;
+    }
+
+    html[dir="ar"] {
+      --font-display: var(--font-display-ar);
+      --font-body: var(--font-body-ar);
     }
 
     * { box-sizing: border-box; }
@@ -40,6 +49,7 @@
     body {
       margin: 0;
       font-family: var(--font-body);
+      line-height: 1.5;
       background:
         radial-gradient(circle at top left, rgba(255, 153, 0, 0.16), transparent 28%),
         radial-gradient(circle at top right, rgba(255, 94, 0, 0.16), transparent 24%),
@@ -47,10 +57,19 @@
       color: var(--text);
       min-width: 320px;
       overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
     a, button, input, select {
       font: inherit;
+    }
+
+    input,
+    select,
+    button {
+      letter-spacing: 0.01em;
     }
 
     button {
@@ -1437,7 +1456,16 @@
 
     [dir="rtl"] .hero-copy h1,
     [dir="rtl"] .section-title,
-    [dir="rtl"] .dashboard-top h2 {
+    [dir="rtl"] .dashboard-top h2,
+    [dir="rtl"] .login-panel h2,
+    [dir="rtl"] .dashboard-card h3,
+    [dir="rtl"] .modal-card h3 {
+      letter-spacing: 0;
+    }
+
+    [dir="rtl"] input,
+    [dir="rtl"] select,
+    [dir="rtl"] button {
       letter-spacing: 0;
     }
 
