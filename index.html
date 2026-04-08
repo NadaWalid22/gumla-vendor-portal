@@ -340,6 +340,22 @@
       min-width: 0;
     }
 
+    #page-landing .hero-stat-block {
+      animation: statRise 0.7s ease both;
+    }
+
+    #page-landing .hero-stat-block:nth-child(2) {
+      animation-delay: 0.08s;
+    }
+
+    #page-landing .hero-stat-block:nth-child(3) {
+      animation-delay: 0.16s;
+    }
+
+    #page-landing .hero-stat-block:nth-child(4) {
+      animation-delay: 0.24s;
+    }
+
     .hero-stat-block + .hero-stat-block {
       border-inline-start: 1px solid rgba(30, 48, 75, 0.1);
     }
@@ -379,6 +395,10 @@
       position: relative;
     }
 
+    #page-landing .hero-card {
+      animation: floatCard 7s ease-in-out infinite;
+    }
+
     .hero-card::before {
       content: "";
       position: absolute;
@@ -387,6 +407,17 @@
       top: 0;
       height: 7px;
       background: linear-gradient(90deg, rgba(30, 48, 75, 0.95), var(--gumla-orange), var(--gumla-gold));
+    }
+
+    #page-landing .hero-card::after {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 -36%;
+      width: 32%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.42), transparent);
+      transform: skewX(-12deg);
+      animation: cardShimmer 6.8s linear infinite;
+      pointer-events: none;
     }
 
     .hero-card-top {
@@ -634,6 +665,16 @@
       min-height: 320px;
       border-radius: 28px;
       box-shadow: 0 12px 26px rgba(30, 48, 75, 0.05);
+      transition: transform 240ms ease, box-shadow 240ms ease;
+    }
+
+    #page-landing .feature-card:hover {
+      transform: translateY(-6px) rotate(-0.35deg);
+      box-shadow: 0 18px 34px rgba(30, 48, 75, 0.11);
+    }
+
+    #page-landing .feature-card:hover .icon-chip {
+      animation: chipBounce 0.55s ease;
     }
 
     .step-card {
@@ -690,6 +731,22 @@
       color: #111;
     }
 
+    #page-landing .step-number {
+      animation: softPulse 3.2s ease-in-out infinite;
+    }
+
+    #page-landing .step-card:nth-child(2) .step-number {
+      animation-delay: 0.2s;
+    }
+
+    #page-landing .step-card:nth-child(3) .step-number {
+      animation-delay: 0.4s;
+    }
+
+    #page-landing .step-card:nth-child(4) .step-number {
+      animation-delay: 0.6s;
+    }
+
     .step-card:first-child .step-number {
       background: linear-gradient(135deg, #d97822, var(--gumla-orange));
       border-color: rgba(255, 94, 0, 0.18);
@@ -728,6 +785,7 @@
       gap: 22px;
       align-items: center;
       box-shadow: 0 24px 52px rgba(30, 48, 75, 0.18);
+      animation: ctaBreath 5s ease-in-out infinite;
     }
 
     .cta-card p {
@@ -1395,6 +1453,58 @@
       to {
         transform: translateY(0);
         opacity: 1;
+      }
+    }
+
+    @keyframes floatCard {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @keyframes cardShimmer {
+      0% { transform: translateX(0) skewX(-12deg); }
+      100% { transform: translateX(560%) skewX(-12deg); }
+    }
+
+    @keyframes statRise {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes chipBounce {
+      0% { transform: translateY(0) scale(1); }
+      45% { transform: translateY(-5px) scale(1.08); }
+      100% { transform: translateY(0) scale(1); }
+    }
+
+    @keyframes softPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.045); }
+    }
+
+    @keyframes ctaBreath {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #page-landing .hero-card,
+      #page-landing .hero-card::after,
+      #page-landing .hero-stat-block,
+      #page-landing .feature-card:hover .icon-chip,
+      #page-landing .step-number,
+      #page-landing .cta-card {
+        animation: none !important;
+      }
+
+      #page-landing .feature-card:hover {
+        transform: none;
       }
     }
 
