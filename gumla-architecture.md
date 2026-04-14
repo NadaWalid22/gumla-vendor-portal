@@ -1,6 +1,6 @@
 # Gumla Vendor Portal — Architecture & Documentation
 
-> **Version:** 2.0.0 · **Stack:** HTML/CSS/JS + Node.js + Odoo 18 · **Author:** Gumla Engineering
+> **Version:** 2.0.0 · **Stack:** HTML/CSS/JS + Node.js + Gumla app · **Author:** Gumla Engineering
 
 ---
 
@@ -11,7 +11,7 @@ The Gumla Vendor Portal is a **B2B marketplace vendor management system** with t
 | Part | Description |
 |------|-------------|
 | **Public Landing Page** | Attracts and onboards vendors; explains the platform value proposition |
-| **Vendor Dashboard** | Authenticated area for viewing products, editing prices, and syncing to Odoo 18 |
+| **Vendor Dashboard** | Authenticated area for viewing products, editing prices, and syncing to Gumla app |
 
 ---
 
@@ -31,7 +31,7 @@ The Gumla Vendor Portal is a **B2B marketplace vendor management system** with t
 └──────────────┬──────────────────────────┬───────────────────────┘
                │ XML-RPC / JSON-RPC        │ SQL
 ┌──────────────▼──────────┐   ┌───────────▼──────────────────────┐
-│     Odoo 18 ERP         │   │   PostgreSQL (Vendor Auth DB)     │
+│     Gumla app ERP         │   │   PostgreSQL (Vendor Auth DB)     │
 │  product.template       │   │   vendors, audit_log tables       │
 │  product.supplierinfo   │   │   (separate from Odoo DB)         │
 │  res.partner            │   └──────────────────────────────────┘
@@ -72,7 +72,7 @@ gumla-vendor-portal/
 ├── README.md                   ← This file
 └── docs/
     ├── api-reference.md        ← Full API endpoint docs
-    ├── odoo-setup.md           ← Odoo 18 configuration guide
+    ├── odoo-setup.md           ← Gumla app configuration guide
     └── deployment.md           ← Production deployment guide
 ```
 
@@ -203,7 +203,7 @@ POST /api/products/bulk-price
 
 ---
 
-## 6. Odoo 18 Integration Details
+## 6. Gumla app Integration Details
 
 ### Models Used
 
@@ -214,7 +214,7 @@ POST /api/products/bulk-price
 | `res.partner` | Vendor identity (matched by `partner_id`) |
 | `stock.quant` | Real-time stock levels (optional) |
 
-### How Vendor Pricing Works in Odoo 18
+### How Vendor Pricing Works in Gumla app
 
 ```
 product.template (id: 42, name: "Laptop Stand Pro")
@@ -301,7 +301,7 @@ PORT=4000
 JWT_SECRET=your_256_bit_random_secret_here
 FRONTEND_URL=http://localhost:3000
 
-# Odoo 18
+# Gumla app
 ODOO_HOST=your-odoo-server.com
 ODOO_PORT=8069
 ODOO_DB=gumla_production
@@ -413,4 +413,4 @@ async function updatePrice(productId, price, supplierInfoId) {
 
 ---
 
-*Gumla Vendor Portal · Built for the B2B Marketplace · Powered by Odoo 18*
+*Gumla Vendor Portal · Built for the B2B Marketplace · Powered by Gumla app*

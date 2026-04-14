@@ -1,6 +1,6 @@
 /**
  * Gumla Vendor Portal — Backend API
- * Node.js + Express + JWT + Odoo 18 XML-RPC Integration
+ * Node.js + Express + JWT + Gumla app XML-RPC Integration
  *
  * Stack: Node 20 · Express 4 · jsonwebtoken · bcrypt · node-fetch · express-rate-limit
  */
@@ -22,7 +22,7 @@ const CONFIG = {
   JWT_SECRET: process.env.JWT_SECRET || 'CHANGE_ME_IN_PRODUCTION',
   JWT_EXPIRY: '7d',
 
-  // Odoo 18 connection
+  // Gumla app connection
   ODOO: {
     host:     process.env.ODOO_HOST     || 'localhost',
     port:     parseInt(process.env.ODOO_PORT) || 8069,
