@@ -2448,9 +2448,9 @@
         'how.step2Title': 'سجل الدخول بأمان',
         'how.step2Body': 'استخدم بياناتك للدخول إلى البوابة. الجلسات محمية عبر JWT وتنتهي تلقائياً.',
         'how.step3Title': 'أداره المنتجات',
-        'how.step3Body': ''اعرض كاتالوج المنتجات الخاصه بك، اضف الكميات والسعر او حدثها نفذ تعديلات بسهوله.',
+        'how.step3Body': 'اعرض كاتالوج المنتجات الخاصه بك اضف الكميات والسعر او حدثها نفذ تعديلات بسهوله .',
         'how.step4Title': 'زامن مع Gumla app',
-        'how.step4Body': 'كل عملية حفظ ترسل تحديثاً مباشراً لحسابك، فتظهر مباشره على التطبيق.',
+        'how.step4Body': 'كل عمليه حفظ ترسل تحديثا مباشره لحسابك فتظهر مباشره على التطبيق',
         'cta.eyebrow': 'انضم إلينا',
         'cta.title': 'هل أنت جاهز للنمو مع جملة؟',
         'cta.body': 'أدخل بريدك الإلكتروني الخاص بالعمل وسنرسل لك رابط الانضمام خلال يوم عمل واحد.',
@@ -2589,10 +2589,23 @@
       localStorage.setItem('gumla_language', language);
       document.documentElement.lang = language;
       document.documentElement.dir = language === 'ar' ? 'rtl' : 'ltr';
-      document.getElementById('lang-en').classList.toggle('active', language === 'en');
-      document.getElementById('lang-ar').classList.toggle('active', language === 'ar');
-      document.getElementById('settings-language').value = language;
-      document.getElementById('stat-language').textContent = language === 'ar' ? 'العربية' : 'English';
+      document.body.dir = document.documentElement.dir;
+
+      const langEnButton = document.getElementById('lang-en');
+      const langArButton = document.getElementById('lang-ar');
+      const settingsLanguage = document.getElementById('settings-language');
+      const statLanguage = document.getElementById('stat-language');
+
+      if (langEnButton) {
+        langEnButton.classList.toggle('active', language === 'en');
+        langEnButton.setAttribute('aria-pressed', language === 'en' ? 'true' : 'false');
+      }
+      if (langArButton) {
+        langArButton.classList.toggle('active', language === 'ar');
+        langArButton.setAttribute('aria-pressed', language === 'ar' ? 'true' : 'false');
+      }
+      if (settingsLanguage) settingsLanguage.value = language;
+      if (statLanguage) statLanguage.textContent = language === 'ar' ? 'العربية' : 'English';
 
       document.querySelectorAll('[data-i18n]').forEach((element) => {
         element.textContent = t(element.dataset.i18n);
