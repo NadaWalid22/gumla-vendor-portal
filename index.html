@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gumla Vendor Portal</title>
-  <meta name="description" content="Gumla vendor portal for product pricing, inventory visibility, and Odoo sync." />
+  <meta name="description" content="Gumla vendor portal for product pricing, inventory visibility, and Gumla app sync." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Syne:wght@600;700;800&family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet" />
@@ -1807,7 +1807,7 @@
           <div class="hero-copy">
             <span class="eyebrow" data-i18n="hero.eyebrow">B2B Marketplace Platform</span>
             <h1 data-i18n="hero.title">Manage Your Products &amp; Pricing with Ease</h1>
-            <p data-i18n="hero.body">Join the Gumla vendor network and take full control of your product catalog. Update prices, track stock, and stay in sync with our Odoo ERP — all from one clean dashboard.</p>
+            <p data-i18n="hero.body">Join the Gumla vendor network and take full control of your product catalog. Update prices, track stock, and stay in sync with our Gumla app — all from one clean dashboard.</p>
             <div class="hero-actions">
               <button class="btn btn-primary" onclick="showPage('login')" data-i18n="hero.primary">Open Vendor Portal</button>
               <button class="btn btn-outline" onclick="document.getElementById('how').scrollIntoView({ behavior: 'smooth' })" data-i18n="hero.secondary">See Workflow</button>
@@ -1909,7 +1909,7 @@
             </div>
             <div class="hero-stat-block">
               <div class="hero-stat-value">&lt;1<span class="accent">s</span></div>
-              <div class="hero-stat-label" data-i18n="hero.stat4">Odoo Sync Time</div>
+              <div class="hero-stat-label" data-i18n="hero.stat4">Gumla app Sync Time</div>
             </div>
           </div>
         </div>
@@ -1926,8 +1926,8 @@
           <div class="feature-grid">
             <article class="feature-card">
               <span class="icon-chip">🔗</span>
-              <h3 data-i18n="features.responsiveTitle">Odoo 18 Integration</h3>
-              <p data-i18n="features.responsiveBody">Real-time two-way sync with Odoo ERP. Prices you update here reflect instantly in the central system — no delays, no discrepancies.</p>
+              <h3 data-i18n="features.responsiveTitle">Gumla app Integration</h3>
+              <p data-i18n="features.responsiveBody">Real-time two-way sync with Gumla app. Prices you update here reflect instantly in the central system — no delays, no discrepancies.</p>
             </article>
             <article class="feature-card">
               <span class="icon-chip">🔒</span>
@@ -1983,8 +1983,8 @@
             </article>
             <article class="step-card">
               <span class="step-number">4</span>
-              <h3 data-i18n="how.step4Title">Sync to Odoo</h3>
-              <p data-i18n="how.step4Body">Every save triggers an API write to Odoo 18. Your prices are live across the marketplace instantly.</p>
+              <h3 data-i18n="how.step4Title">Sync to Gumla app</h3>
+              <p data-i18n="how.step4Body">Every save triggers an API write to Gumla app. Your prices are live across the marketplace instantly.</p>
             </article>
           </div>
         </div>
@@ -2020,7 +2020,7 @@
               <h1 data-i18n="login.title">Your products. Your prices. Your control.</h1>
               <p data-i18n="login.subtitle">Sign in to manage your catalog, update pricing, and stay synced with the Gumla B2B marketplace.</p>
               <ul class="login-brand-list">
-                <li data-i18n="login.point1">Real-time Odoo ERP integration</li>
+                <li data-i18n="login.point1">Real-time Gumla app integration</li>
                 <li data-i18n="login.point2">Secure, vendor-isolated access</li>
                 <li data-i18n="login.point3">Inline price editing &amp; bulk update</li>
                 <li data-i18n="login.point4">Full change audit trail</li>
@@ -2276,7 +2276,7 @@
         'nav.logout': 'Sign Out',
         'hero.eyebrow': 'B2B Marketplace Platform',
         'hero.title': 'Manage Your Products & Pricing with Ease',
-        'hero.body': 'Join the Gumla vendor network and take full control of your product catalog. Update prices, track stock, and stay in sync with our Odoo ERP — all from one clean dashboard.',
+        'hero.body': 'Join the Gumla vendor network and take full control of your product catalog. Update prices, track stock, and stay in sync with our Gumla app — all from one clean dashboard.',
         'hero.primary': 'Open Vendor Portal',
         'hero.secondary': 'See Workflow',
         'hero.trustTitle': '500+ vendors',
@@ -2284,7 +2284,7 @@
         'hero.stat1': 'Active Vendors',
         'hero.stat2': 'Products Managed',
         'hero.stat3': 'Uptime SLA',
-        'hero.stat4': 'Odoo Sync Time',
+        'hero.stat4': 'Gumla app Sync Time',
         'hero.cardTitle': 'My Products',
         'hero.cardSub': 'Responsive preview with Gumla colors',
         'hero.live': 'Live',
@@ -2297,8 +2297,8 @@
         'features.eyebrow': 'Platform Features',
         'features.title': 'Built for Gumla’s real vendor workflow',
         'features.sub': 'The portal gives every vendor a clean, isolated workspace to manage their slice of the marketplace.',
-        'features.responsiveTitle': 'Odoo 18 Integration',
-        'features.responsiveBody': 'Real-time two-way sync with Odoo ERP. Prices you update here reflect instantly in the central system — no delays, no discrepancies.',
+        'features.responsiveTitle': 'Gumla app Integration',
+        'features.responsiveBody': 'Real-time two-way sync with Gumla app. Prices you update here reflect instantly in the central system — no delays, no discrepancies.',
         'features.langTitle': 'Vendor Data Isolation',
         'features.langBody': 'Each vendor can only see and manage their own products. JWT-secured sessions with role-based access ensure complete data privacy.',
         'features.brandTitle': 'Inline Price Editing',
@@ -2312,13 +2312,13 @@
         'how.eyebrow': 'How it works',
         'how.title': 'From vendor login to synced in four steps',
         'how.step1Title': 'Request Access',
-        'how.step1Body': 'Submit your vendor application. Our team reviews and creates your Odoo-linked account within 24 hours.',
+        'how.step1Body': 'Submit your vendor application. Our team reviews and creates your Gumla app-linked account within 24 hours.',
         'how.step2Title': 'Log In Securely',
         'how.step2Body': 'Use your credentials to access the portal. Sessions are JWT-protected and expire automatically.',
         'how.step3Title': 'Manage Products',
         'how.step3Body': 'View your assigned product catalog. Add prices, edit existing ones, or bulk-update with one click.',
-        'how.step4Title': 'Sync to Odoo',
-        'how.step4Body': 'Every save triggers an API write to Odoo 18. Your prices are live across the marketplace instantly.',
+        'how.step4Title': 'Sync to Gumla app',
+        'how.step4Body': 'Every save triggers an API write to Gumla app. Your prices are live across the marketplace instantly.',
         'cta.eyebrow': 'Join the Network',
         'cta.title': 'Ready to grow on Gumla?',
         'cta.body': 'Enter your business email and we\'ll send you an onboarding link within one business day.',
@@ -2327,7 +2327,7 @@
         'login.brand': 'Gumla Vendor Portal',
         'login.title': 'Your products. Your prices. Your control.',
         'login.subtitle': 'Sign in to manage your catalog, update pricing, and stay synced with the Gumla B2B marketplace.',
-        'login.point1': 'Real-time Odoo ERP integration',
+        'login.point1': 'Real-time Gumla app integration',
         'login.point2': 'Secure, vendor-isolated access',
         'login.point3': 'Inline price editing & bulk update',
         'login.point4': 'Full change audit trail',
@@ -2408,7 +2408,7 @@
         'nav.logout': 'تسجيل الخروج',
         'hero.eyebrow': 'منصة تجارة بين الشركات',
         'hero.title': 'إدارة منتجاتك وأسعارك بكل سهولة.',
-        'hero.body': 'انضم إلى شبكة موردي جملة وتحكم بالكامل في كتالوج منتجاتك. حدّث الأسعار، وتابع المخزون، وابقَ على اتصال دائم مع نظام Odoo ERP من خلال لوحة تحكم واحدة سهلة وواضحة.',
+        'hero.body': 'انضم إلى شبكة موردي جملة وتحكم بالكامل في كتالوج منتجاتك. حدّث الأسعار، وتابع المخزون، وابقَ على اتصال دائم مع نظام Gumla app من خلال لوحة تحكم واحدة سهلة وواضحة.',
         'hero.primary': 'فتح بوابة الموردين',
         'hero.secondary': 'عرض سير العمل',
         'hero.trustTitle': 'أكثر من 500 مورد',
@@ -2553,7 +2553,7 @@
 
     const DEMO_HISTORY = [
       { type: 'green', text: 'Laptop Stand Pro price updated to EGP 799', time: '2m ago' },
-      { type: 'green', text: 'USB-C Hub 7-in-1 synced to Odoo successfully', time: '8m ago' },
+      { type: 'green', text: 'USB-C Hub 7-in-1 synced to Gumla app successfully', time: '8m ago' },
       { type: 'yellow', text: 'Gaming Mouse G502 still needs a vendor price', time: '1h ago' },
       { type: 'red', text: 'Webcam HD 1080p sync is pending retry', time: '5h ago' }
     ];
