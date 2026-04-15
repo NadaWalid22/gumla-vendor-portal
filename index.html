@@ -1547,20 +1547,6 @@
         grid-template-columns: 1fr;
       }
 
-      #page-landing .hero-grid {
-        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-        align-items: center;
-      }
-
-      #page-landing .stats-strip {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0;
-      }
-
-      #page-landing .feature-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
       .login-shell {
         padding: 20px 0 40px;
       }
@@ -1679,98 +1665,22 @@
       .dashboard-stats,
       .steps-grid,
       .settings-grid,
-      .stats-strip,
       .hero-stats-band {
         grid-template-columns: 1fr;
       }
 
-      #page-dashboard .dashboard-sidebar {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      #page-dashboard .dashboard-nav {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 8px;
-      }
-
-      #page-dashboard .nav-tab {
-        text-align: center;
-      }
-
-      #page-dashboard .dashboard-stats,
-      #page-dashboard .settings-grid,
-      #page-dashboard #tab-pricing-panel .cards-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 12px;
-      }
-
-      #page-dashboard .dashboard-top {
-        align-items: stretch;
-      }
-
-      #page-dashboard .top-actions {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        width: 100%;
-      }
-
-      #page-dashboard .top-actions .search-input {
-        grid-column: 1 / -1;
-      }
-
-      #page-landing .feature-grid,
-      #page-landing .steps-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 12px;
-      }
-
       #page-landing .hero-grid {
-        grid-template-columns: minmax(0, 1.05fr) minmax(240px, 0.95fr);
-        gap: 16px;
+        grid-template-columns: 1fr;
+        gap: 20px;
       }
 
       #page-landing .stats-strip {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      #page-landing .feature-card,
-      #page-landing .step-card {
-        padding: 16px;
-      }
-
-      #page-landing .feature-card {
-        min-height: 0;
-        border-radius: 22px;
-      }
-
-      #page-landing .step-number {
-        width: 72px;
-        height: 72px;
-        margin-bottom: 14px;
-        font-size: 1.4rem;
-      }
-
-      #page-landing .hero-card {
-        animation: floatCard 5.8s ease-in-out infinite;
-      }
-
-      #page-landing .hero-card::after {
-        animation: cardShimmer 3.5s linear infinite;
-      }
-
-      #page-landing .hero-stat-block {
-        animation: statRise 0.55s ease both;
-      }
-
-      #page-landing .hero-stat-block:nth-child(2) {
-        animation-delay: 0.08s;
-      }
-
-      #page-landing .hero-stat-block:nth-child(3) {
-        animation-delay: 0.16s;
+      #features .feature-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
       }
 
       .hero-stat-block + .hero-stat-block {
@@ -1872,38 +1782,17 @@
     }
 
     @media (max-width: 560px) {
-      #page-landing .hero-grid {
-        grid-template-columns: minmax(0, 1.05fr) minmax(200px, 0.95fr);
-        gap: 12px;
-      }
-
-      #page-landing .stats-strip {
-        grid-template-columns: repeat(4, minmax(110px, 1fr));
-        overflow-x: auto;
-      }
-
-      #page-landing .feature-grid,
-      #page-landing .steps-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-      }
-
       #features .feature-grid {
-        grid-template-columns: repeat(2, minmax(150px, 1fr)) !important;
-      }
-
-      #page-dashboard .dashboard-sidebar {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
-      #page-dashboard .dashboard-nav {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      #page-landing .feature-card {
+        padding: 14px;
       }
 
-      #page-dashboard .dashboard-stats,
-      #page-dashboard .settings-grid,
-      #page-dashboard #tab-pricing-panel .cards-grid,
-      #page-dashboard .top-actions {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+      #page-landing .feature-card h3 {
+        margin: 14px 0 8px;
+        font-size: 1.02rem;
       }
     }
   </style>
